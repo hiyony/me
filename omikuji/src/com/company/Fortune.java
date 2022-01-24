@@ -1,6 +1,11 @@
 package com.company;
 
+import java.io.IOException;
+import java.util.ResourceBundle;
+
 public interface Fortune {
-    String DISP_STR = "プロパティファイルから読込";
-    String disp();
+    //프로퍼티 파일로부터
+    ResourceBundle rb = ResourceBundle.getBundle("Fortuneishere");
+    String DISP_STR = rb.getString("disp_str");
+    String disp() throws IOException;
 }
