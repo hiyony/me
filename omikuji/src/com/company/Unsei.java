@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Properties;
+
 public abstract class Unsei implements Fortune{
     protected String unsei;
     protected String negaigoto;
@@ -36,6 +38,11 @@ public abstract class Unsei implements Fortune{
     }
 
     public String disp() {
+
+        Properties p = new Properties();
+        String DISP_STR = p.getProperty("disp_str");
+        System.out.println(DISP_STR);
+
         StringBuilder sb = new StringBuilder();
         sb.append(String.format(DISP_STR, unsei));
         sb.append("\n 願い事 : ");
