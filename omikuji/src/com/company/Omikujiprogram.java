@@ -1,8 +1,5 @@
 package com.company;
 
-import com.sun.rmi.rmid.ExecPermission;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +20,7 @@ public class Omikujiprogram {
             String todayString = today.format(dateTimeFormatter);
 
             //3. 포함한 결과 파일 結果ファイル（＋誕生日）
-            File result = new File("src/com/company/result.csv");
+            File result = new File("omikuji/result.csv");
             try {
                 FileReader reader = new FileReader(result);
                 BufferedReader br3 = new BufferedReader(reader);
@@ -32,7 +29,7 @@ public class Omikujiprogram {
 
 
                 while ((date = br3.readLine()) != null) {
-                    String[] values2 = date.split(",");
+                    String [] values2 = date.split(",");
                     String resbirthday = values2[0];
                     String restoday = values2[1];
 
@@ -51,7 +48,7 @@ public class Omikujiprogram {
                 //전에 받아온 결과가 비어있을 경우 「結果がnullだ」の場合
                 if (unsei == null) {
 
-                    String path = "src/com/company/omkj.csv";
+                    String path = "omikuji/omkj.csv";
                     String line = "";
                     BufferedReader br = new BufferedReader(new FileReader(path));
 
@@ -104,17 +101,17 @@ public class Omikujiprogram {
 
                         StringBuilder sb = new StringBuilder();
                         sb.append(birthday);
-                        sb.append(',');
+                        sb.append(",");
                         sb.append(todayString);
-                        sb.append(',');
+                        sb.append(",");
                         sb.append(unsei.unsei);
-                        sb.append(',');
+                        sb.append(",");
                         sb.append(unsei.negaigoto);
-                        sb.append(',');
+                        sb.append(",");
                         sb.append(unsei.akinai);
-                        sb.append(',');
+                        sb.append(",");
                         sb.append(unsei.gakumon);
-                        sb.append('\n');
+                        sb.append("\n");
 
                         fw.write(sb.toString());
                         fw.flush();
