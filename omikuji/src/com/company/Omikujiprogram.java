@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Omikujiprogram {
 
@@ -99,6 +100,7 @@ public class Omikujiprogram {
                 }
 
                 unsei.setUnsei();
+                unsei.setUnsei();
                 unsei.setNegaigoto(values[1]);
                 unsei.setAkinai(values[2]);
                 unsei.setGakumon(values[3]);
@@ -110,28 +112,36 @@ public class Omikujiprogram {
         }
 
         //랜덤으로 출력하기
-        int rannum = (int) (Math.random() * omikuji.size());
+        int rannum = new Random().nextInt(omikuji.size());
         unsei = omikuji.get(rannum);
 
-        System.out.println(omikuji.get(0).disp());
+        System.out.println(unsei.disp());
 
         //csv 파일에 입력
         try {
             FileWriter fw = new FileWriter(result, true);
-            PrintWriter pw = new PrintWriter(new BufferedWriter(fw));
-            pw.print(birthday);
-            pw.print(",");
-            pw.print(todayString);
-            pw.print(",");
-            pw.print(unsei.unsei);
-            pw.print(",");
-            pw.print(unsei.negaigoto);
-            pw.print(",");
-            pw.print(unsei.akinai);
-            pw.print(",");
-            pw.print(unsei.gakumon);
-            pw.print("\n");
-            pw.close();
+            String ls = System.lineSeparator();
+            StringBuilder sb = new StringBuilder();
+            sb.append(birthday);
+            sb.append(",");
+            sb.append(todayString);
+            sb.append(",");
+            sb.append(unsei.unsei);
+            sb.append(",");
+            sb.append(unsei.negaigoto);
+            sb.append(",");
+            sb.append(unsei.akinai);
+            sb.append(",");
+            sb.append(unsei.gakumon);
+            sb.append(ls);
+
+            fw.write(sb.toString());
+            fw.flush();
+
+            if(fw != null){
+                fw.close();
+            }
+
         } catch (FileNotFoundException e){
             e.printStackTrace();
         } catch (IOException e){

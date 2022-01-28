@@ -1,5 +1,8 @@
 package com.company;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Properties;
 
 public abstract class Unsei implements Fortune{
@@ -37,19 +40,20 @@ public abstract class Unsei implements Fortune{
         this.gakumon=gakumon;
     }
 
-    public String disp() {
+    public String disp() throws IOException {
 
         Properties p = new Properties();
+        String path = Unsei.class.getResource("fortune.properties").getPath();
+        p.load(new FileReader(path));
         String DISP_STR = p.getProperty("disp_str");
-        System.out.println(DISP_STR);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format(DISP_STR, unsei));
-        sb.append("\n 願い事 : ");
+        sb.append(String.format(DISP_STR, getUnsei()));
+        sb.append("\n願い事 : ");
         sb.append(getNegaigoto());
-        sb.append("\n 商い : ");
+        sb.append("\n商い : ");
         sb.append((getAkinai()));
-        sb.append("\n 学問 : ");
+        sb.append("\n学問 : ");
         sb.append(getGakumon());
         return sb.toString();
     }
