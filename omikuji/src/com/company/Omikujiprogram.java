@@ -59,21 +59,6 @@ public class Omikujiprogram {
                     String resnegaigoto = values2[3];
                     String resakinai = values2[4];
                     String resgakumon = values2[5];
-                    StringBuilder sb = new StringBuilder();
-                    sb.append("今日の運勢は");
-                    sb.append(resunsei);
-                    sb.append("です。");
-                    sb.append("\n");
-                    sb.append("願い事：");
-                    sb.append(resnegaigoto);
-                    sb.append("\n");
-                    sb.append("商い：");
-                    sb.append(resakinai);
-                    sb.append("\n");
-                    sb.append("学問：");
-                    sb.append(resgakumon);
-                    System.out.println(sb.toString());
-                    return;
                 }
             }
         } catch (IOException e) {
