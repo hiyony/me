@@ -42,80 +42,81 @@ public class Omikujiprogram {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         String todayString = today.format(dateTimeFormatter);
 
-        //3. 포함한 결과 파일 結果ファイル（＋誕生日）
-        File result = new File("omikuji/result.csv");
-        try {
-            FileReader reader = new FileReader(result);
-            BufferedReader br3 = new BufferedReader(reader);
-            String date;
-
-            while ((date = br3.readLine()) != null) {
-                String[] values2 = date.split(",");
-                String resbirthday = values2[0];
-                String restoday = values2[1];
-
-                if (resbirthday.equals(birthday) && restoday.equals(todayString)) {
-                    String resunsei = values2[2];
-                    String resnegaigoto = values2[3];
-                    String resakinai = values2[4];
-                    String resgakumon = values2[5];
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         //4. 파일 읽어와서 unsei에 넣어주기 ファイルを読み込んでUnseiに入れる
         //파일 읽어오기 위한 path, line, BufferedReader
         //전에 받아온 결과가 비어있을 경우 「結果がnullだ」の場合
             List<Unsei> omikuji = new ArrayList<>(); //부모클래스 Unsei로 생성한 객체 어레이리스트
             Unsei unsei = null;
+            File result = new File("omikuji/result.csv");
+            if(unsei == null) {
+                try {
+                    String path = "omikuji/omkj.csv";
+                    String line = "";
+                    BufferedReader br = new BufferedReader(new FileReader(path));
 
-            try {
-                String path = "omikuji/omkj.csv";
-                String line = "";
-                BufferedReader br = new BufferedReader(new FileReader(path));
+                    String[] values; //1줄씩 받아서 저장할 어레이
+                    br.readLine();
+                    //1줄씩 csv파일 읽어오기 １行ずつcsvファイルから読み込む
+                    while ((line = br.readLine()) != null) {
+                        values = line.split(",");
 
-                String[] values; //1줄씩 받아서 저장할 어레이
-                br.readLine();
-                //1줄씩 csv파일 읽어오기 １行ずつcsvファイルから読み込む
-                while ((line = br.readLine()) != null) {
-                    values = line.split(",");
+                        //switch문으로 운세 지정해서 넣어주기
+                        switch (values[0]) {
+                            case "大吉":
+                                unsei = new Daikichi();
+                                break;
+                            case "中吉":
+                                unsei = new Cyuukichi();
+                                break;
+                            case "小吉":
+                                unsei = new Syoukichi();
+                                break;
+                            case "吉":
+                                unsei = new Kichi();
+                                break;
+                            case "末吉":
+                                unsei = new Sueyosi();
+                                break;
+                            case "凶":
+                                unsei = new Kyou();
+                                break;
+                            default:
+                        }
 
-                    //switch문으로 운세 지정해서 넣어주기
-                    switch (values[0]) {
-                        case "大吉":
-                            unsei = new Daikichi();
-                            break;
-                        case "中吉":
-                            unsei = new Cyuukichi();
-                            break;
-                        case "小吉":
-                            unsei = new Syoukichi();
-                            break;
-                        case "吉":
-                            unsei = new Kichi();
-                            break;
-                        case "末吉":
-                            unsei = new Sueyosi();
-                            break;
-                        case "凶":
-                            unsei = new Kyou();
-                            break;
-                        default:
+                        unsei.setUnsei();
+                        unsei.setNegaigoto(values[1]);
+                        unsei.setAkinai(values[2]);
+                        unsei.setGakumon(values[3]);
+                        omikuji.add(unsei);
                     }
-
-                    unsei.setUnsei();
-                    unsei.setNegaigoto(values[1]);
-                    unsei.setAkinai(values[2]);
-                    unsei.setGakumon(values[3]);
-                    omikuji.add(unsei);
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                br.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            } else if(unsei != null){
+                try {
+                    FileReader reader = new FileReader(result);
+                    BufferedReader br3 = new BufferedReader(reader);
+                    String date;
 
+                    while ((date = br3.readLine()) != null) {
+                        String[] values2 = date.split(",");
+                        String resbirthday = values2[0];
+                        String restoday = values2[1];
+
+                        if (resbirthday.equals(birthday) && restoday.equals(todayString)) {
+                            String resunsei = values2[2];
+                            String resnegaigoto = values2[3];
+                            String resakinai = values2[4];
+                            String resgakumon = values2[5];
+                            String ls = System.lineSeparator();
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         //랜덤으로 출력하기
         int rannum = new Random().nextInt(omikuji.size());
         unsei = omikuji.get(rannum);
