@@ -6,3 +6,4 @@ public class Kyou extends Unsei{
         unsei = "凶";
     }
 }
+

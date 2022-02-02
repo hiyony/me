@@ -6,3 +6,4 @@ public class Daikichi extends Unsei{
         unsei = "大吉";
     }
 }
+
