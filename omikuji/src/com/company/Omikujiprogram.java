@@ -20,7 +20,7 @@ public class Omikujiprogram {
         //System.inで入力させる値をInputStreamReaderで処理して、BufferedReaderで読みます。
         String birthday = null;
         BufferedReader br2 = new BufferedReader(new InputStreamReader(System.in));
-        while(true) {
+        while (true) {
             System.out.println("お誕生日はいつですか？(YYYYMMDD 形式)　");
             birthday = br2.readLine();
 
@@ -42,7 +42,7 @@ public class Omikujiprogram {
                 dateFormatParser.setLenient(false);
                 dateFormatParser.parse(birthday);
                 break;
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("入力された誕生日の日付形式が正しくありません。");
                 System.out.println("YYYYMMDDの形式でお願いします。");
                 continue;
@@ -66,95 +66,91 @@ public class Omikujiprogram {
         //Unseiで他のオブジェクト変数を作って、初期化します。
         //全ての結果が入れるresult.csvを読み込みます。
         List<Unsei> omikuji = new ArrayList<>(); //부모클래스 Unsei로 생성한 객체 어레이리스트
-            Unsei unsei = null;
-            File result = new File("omikuji/result.csv");
+        Unsei unsei = null;
+        File result = new File("omikuji/result.csv");
 
+        //4. CSV파일에 결과 입력(이미 저장된 결과가 있을 경우) CSVファイルに結果をセットする(UNSEIにもう結果がある場合)
+        if (unsei != null) {
+            try {
+                FileReader reader = new FileReader(result);
+                BufferedReader br3 = new BufferedReader(reader);
+                String date;
+
+                //それぞれの変数に読み込んだ結果をセットします。
+                //でも、同じ誕生日と今日の日付の場合、同じ結果が出なければならないので、if文を使ってセットします。
+                while ((date = br3.readLine()) != null) {
+                    String[] values2 = date.split(",");
+                    if (values2[0].equals(birthday) && values2[1].equals(todayString)) {
+                        unsei.setUnsei(values2[2]);
+                        unsei.setNegaigoto(values2[3]);
+                        unsei.setAkinai(values2[4]);
+                        unsei.setGakumon(values2[5]);
+                        String ls = System.lineSeparator();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         //Unseiのオブジェクト:unseiが空いている場合
         //unseiが空いている場合、結果をセットするためにif文を使います。
-        if(unsei == null) {
-                try {
-                    String path = "omikuji/omkj.csv";
-                    String line = "";
-                    BufferedReader br = new BufferedReader(new FileReader(path));
+        else {
+            try {
+                String path = "omikuji/omkj.csv";
+                String line = "";
+                BufferedReader br = new BufferedReader(new FileReader(path));
 
-                    //omkj.csvから値を読み込みます。omkj.csvファイルは大吉、中吉、小吉、…、凶の結果が入っています。
-                    //この値を入れるString [] valuesを作ります。
-                    //readLineを使って１行ずつ読みます。値の区分は”,”で切って読み込みます。
+                //omkj.csvから値を読み込みます。omkj.csvファイルは大吉、中吉、小吉、…、凶の結果が入っています。
+                //この値を入れるString [] valuesを作ります。
+                //readLineを使って１行ずつ読みます。値の区分は”,”で切って読み込みます。
 
-                    String[] values; //1줄씩 받아서 저장할 어레이
-                    br.readLine();
-                    //1줄씩 csv파일 읽어오기 １行ずつcsvファイルから読み込む
-                    while ((line = br.readLine()) != null) {
-                        values = line.split(",");
+                String[] values; //1줄씩 받아서 저장할 어레이
+                br.readLine();
+                //1줄씩 csv파일 읽어오기 １行ずつcsvファイルから読み込む
+                while ((line = br.readLine()) != null) {
+                    values = line.split(",");
 
-                        //子クラス型の変数に入れる
-                        //switch문으로 운세 지정해서 넣어주기
-                        //Switch文を使って、作った抽象クラスを受け継いだ子クラス(Daikichi.java, Cyuukichi.java, …, Kyou.java)に
-                        //それぞれの値をnewします。
-                        switch (values[0]) {
-                            case "大吉":
-                                unsei = new Daikichi();
-                                break;
-                            case "中吉":
-                                unsei = new Cyuukichi();
-                                break;
-                            case "小吉":
-                                unsei = new Syoukichi();
-                                break;
-                            case "吉":
-                                unsei = new Kichi();
-                                break;
-                            case "末吉":
-                                unsei = new Sueyosi();
-                                break;
-                            case "凶":
-                                unsei = new Kyou();
-                                break;
-                            default:
-                        }
-
-                        //Unseiのmethodにそれぞれの値をセットします。
-                        //それぞれの値をセットして、作ったArrayListである omikujiに入れます。
-                        //最後、BufferedReaderを閉めて、例外処理をします。
-                        unsei.setUnsei();
-                        unsei.setNegaigoto(values[1]);
-                        unsei.setAkinai(values[2]);
-                        unsei.setGakumon(values[3]);
-                        omikuji.add(unsei);
+                    //子クラス型の変数に入れる
+                    //switch문으로 운세 지정해서 넣어주기
+                    //Switch文を使って、作った抽象クラスを受け継いだ子クラス(Daikichi.java, Cyuukichi.java, …, Kyou.java)に
+                    //それぞれの値をnewします。
+                    switch (values[0]) {
+                        case "大吉":
+                            unsei = new Daikichi();
+                            break;
+                        case "中吉":
+                            unsei = new Cyuukichi();
+                            break;
+                        case "小吉":
+                            unsei = new Syoukichi();
+                            break;
+                        case "吉":
+                            unsei = new Kichi();
+                            break;
+                        case "末吉":
+                            unsei = new Sueyosi();
+                            break;
+                        case "凶":
+                            unsei = new Kyou();
+                            break;
+                        default:
                     }
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                    //Unseiのmethodにそれぞれの値をセットします。
+                    //それぞれの値をセットして、作ったArrayListである omikujiに入れます。
+                    //最後、BufferedReaderを閉めて、例外処理をします。
+                    unsei.setUnsei();
+                    unsei.setNegaigoto(values[1]);
+                    unsei.setAkinai(values[2]);
+                    unsei.setGakumon(values[3]);
+                    String ls = System.lineSeparator();
+                    omikuji.add(unsei);
                 }
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            //4. CSV파일에 결과 입력(이미 저장된 결과가 있을 경우) CSVファ우ルに結果をセットする(UNSEIにもう結果がある場合)
-            else if(unsei != null){
-                try {
-                    FileReader reader = new FileReader(result);
-                    BufferedReader br3 = new BufferedReader(reader);
-                    String date;
-
-                    //それぞれの変数に読み込んだ結果をセットします。
-                    //でも、同じ誕生日と今日の日付の場合、同じ結果が出なければならないので、if文を使ってセットします。
-                    while ((date = br3.readLine()) != null) {
-                        String[] values2 = date.split(",");
-                        String resbirthday = values2[0];
-                        String restoday = values2[1];
-
-                        if (resbirthday.equals(birthday) && restoday.equals(todayString)) {
-                            String resunsei = values2[2];
-                            String resnegaigoto = values2[3];
-                            String resakinai = values2[4];
-                            String resgakumon = values2[5];
-                            String ls = System.lineSeparator();
-                        }
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
+        }
         //5. 랜덤으로 출력하기 ランダム結果を出力する
         int rannum = new Random().nextInt(omikuji.size());
         unsei = omikuji.get(rannum);
@@ -163,7 +159,6 @@ public class Omikujiprogram {
 
         //6. result.csv 파일에 입력 RESULT.CSVファイルに結果を書く
         try {
-
             //StringBuilderを使ってそれぞれの値を保存します。
             //fw.write(sb.toString())で保存した値を書いて、fw.flush()で全部放出します。
             //fw.close()でFileWriterを終了します。
@@ -174,29 +169,29 @@ public class Omikujiprogram {
             sb.append(",");
             sb.append(todayString);
             sb.append(",");
-            sb.append(unsei.unsei);
+            sb.append(unsei.getUnsei());
             sb.append(",");
-            sb.append(unsei.negaigoto);
+            sb.append(unsei.getNegaigoto());
             sb.append(",");
-            sb.append(unsei.akinai);
+            sb.append(unsei.getAkinai());
             sb.append(",");
-            sb.append(unsei.gakumon);
+            sb.append(unsei.getGakumon());
             sb.append(ls);
 
             fw.write(sb.toString());
             fw.flush();
 
-            if(fw != null){
+            if (fw != null) {
                 fw.close();
             }
 
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
+    }
     //7. main 클래스로 프로그램 실행 MAINクラスでプログラムを実行する
     public static void main(String[] args) throws Exception {
         Omikujiprogram omikujiprogram = new Omikujiprogram();
