@@ -69,32 +69,9 @@ public class Omikujiprogram {
         Unsei unsei = null;
         File result = new File("omikuji/result.csv");
 
-        //4. CSV파일에 결과 입력(이미 저장된 결과가 있을 경우) CSVファイルに結果をセットする(UNSEIにもう結果がある場合)
-        if (unsei != null) {
-            try {
-                FileReader reader = new FileReader(result);
-                BufferedReader br3 = new BufferedReader(reader);
-                String date;
-
-                //それぞれの変数に読み込んだ結果をセットします。
-                //でも、同じ誕生日と今日の日付の場合、同じ結果が出なければならないので、if文を使ってセットします。
-                while ((date = br3.readLine()) != null) {
-                    String[] values2 = date.split(",");
-                    if (values2[0].equals(birthday) && values2[1].equals(todayString)) {
-                        unsei.setUnsei(values2[2]);
-                        unsei.setNegaigoto(values2[3]);
-                        unsei.setAkinai(values2[4]);
-                        unsei.setGakumon(values2[5]);
-                        String ls = System.lineSeparator();
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         //Unseiのオブジェクト:unseiが空いている場合
         //unseiが空いている場合、結果をセットするためにif文を使います。
-        else {
+        if(unsei == null) {
             try {
                 String path = "omikuji/omkj.csv";
                 String line = "";
@@ -146,19 +123,45 @@ public class Omikujiprogram {
                     String ls = System.lineSeparator();
                     omikuji.add(unsei);
                 }
+
+                //5. 랜덤으로 출력하기 ランダム結果を出力する
+                int rannum = new Random().nextInt(omikuji.size());
+                unsei = omikuji.get(rannum);
+
+                System.out.println(unsei.disp());
+
                 br.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        //5. 랜덤으로 출력하기 ランダム結果を出力する
-        int rannum = new Random().nextInt(omikuji.size());
-        unsei = omikuji.get(rannum);
 
-        System.out.println(unsei.disp());
+            //4. CSV파일에 결과 입력(이미 저장된 결과가 있을 경우) CSVファイルに結果をセットする(UNSEIにもう結果がある場合)
+            try {
+                FileReader reader = new FileReader(result);
+                BufferedReader br3 = new BufferedReader(reader);
+                String date;
 
-        //6. result.csv 파일에 입력 RESULT.CSVファイルに結果を書く
-        try {
+                //それぞれの変数に読み込んだ結果をセットします。
+                //でも、同じ誕生日と今日の日付の場合、同じ結果が出なければならないので、if文を使ってセットします。
+                while ((date = br3.readLine()) != null) {
+                    String[] values2 = date.split(",");
+                    if (values2[0].equals(birthday) && values2[1].equals(todayString)) {
+                        unsei.setUnsei(values2[2]);
+                        unsei.setNegaigoto(values2[3]);
+                        unsei.setAkinai(values2[4]);
+                        unsei.setGakumon(values2[5]);
+
+                        System.out.println(values2[0].equals(birthday));
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            //6. result.csv 파일에 입력 RESULT.CSVファイルに結果を書く
+
             //StringBuilderを使ってそれぞれの値を保存します。
             //fw.write(sb.toString())で保存した値を書いて、fw.flush()で全部放出します。
             //fw.close()でFileWriterを終了します。
@@ -185,13 +188,7 @@ public class Omikujiprogram {
                 fw.close();
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
-    }
     //7. main 클래스로 프로그램 실행 MAINクラスでプログラムを実行する
     public static void main(String[] args) throws Exception {
         Omikujiprogram omikujiprogram = new Omikujiprogram();
