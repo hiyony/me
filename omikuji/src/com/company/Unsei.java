@@ -13,6 +13,7 @@ public abstract class Unsei implements Fortune{
     public abstract void setUnsei();
 
     public String getUnsei(){
+
         return unsei;
     }
     public void setUnsei(String unsei) {
@@ -58,3 +59,6 @@ public abstract class Unsei implements Fortune{
         return sb.toString();
     }
 }
+
+
+
