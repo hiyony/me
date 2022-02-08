@@ -71,7 +71,8 @@ public class Omikujiprogram {
         };
         File result = new File("omikuji/result.csv");
 
-        //4. CSV파일에 결과 입력(이미 저장된 결과가 있을 경우) CSVファイルに結果をセットする(UNSEIにもう結果がある場合)
+
+        //3. CSV파일에 결과 입력(이미 저장된 결과가 있을 경우) CSVファイルに結果をセットする(UNSEIにもう結果がある場合)
         try {
             FileReader reader = new FileReader(result);
             BufferedReader br3 = new BufferedReader(reader);
@@ -84,11 +85,13 @@ public class Omikujiprogram {
             while ((date = br3.readLine()) != null) {
                 String[] values2 = date.split(",");
                 if (values2[0].equals(birthday) && values2[1].equals(todayString)) {
+                    //同じ結果を出します。
                     unsei.setUnsei(values2[2]); //Unsei unsei = null; <<때문에 NullPointerException 남 ..........
                     unsei.setUnsei();
                     unsei.setNegaigoto(values2[3]);
                     unsei.setAkinai(values2[4]);
                     unsei.setGakumon(values2[5]);
+                    //コンソールに結果を出力します。
                     StringBuilder sb = new StringBuilder();
                     sb.append("今日の運勢は");
                     sb.append(unsei.unsei);
@@ -101,7 +104,7 @@ public class Omikujiprogram {
                     sb.append(unsei.gakumon);
                     sb.append(ls);
                     System.out.println(sb.toString());
-
+                    //csvファイルに結果を出力します。
                     String sb2 = birthday +
                             "," +
                             todayString +
@@ -126,8 +129,9 @@ public class Omikujiprogram {
             e.printStackTrace();
         }
 
-        //3. omkj.csv 파일을 읽어서 unsei가 null일 경우 넣어줌
-        // OMKJ.CSV ファイルを読み込んでUNSEIに入れる(UNSEIがNULLではない場合)
+
+        //4. omkj.csv 파일을 읽어오기, unsei가 null일 경우 넣어줌
+        // OMKJ.CSV ファイルを読み込む、UNSEIに入れる(UNSEIがNULLではない場合)
 
         //Unseiのオブジェクト:unseiが空いている場合
         //unseiが空いている場合、結果をセットするためにif文を使います。
@@ -175,16 +179,18 @@ public class Omikujiprogram {
             e.printStackTrace();
         }
 
+
         //5. 랜덤으로 출력하기 ランダム結果を出力する
         int rannum = new Random().nextInt(omikuji.size());
         unsei = omikuji.get(rannum);
         System.out.println(unsei.disp());
+
+
         //6. result.csv 파일에 입력 RESULT.CSVファイルに結果を書く
 
         //StringBuilderを使ってそれぞれの値を保存します。
         //fw.write(sb.toString())で保存した値を書いて、fw.flush()で全部放出します。
         //fw.close()でFileWriterを終了します。
-
         try{
             FileWriter fw = new FileWriter(result, true);
             String ls = System.lineSeparator();
