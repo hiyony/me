@@ -10,6 +10,7 @@ public abstract class Unsei implements Fortune{
     protected String negaigoto;
     protected String akinai;
     protected String gakumon;
+    protected String omikujicode;
     public abstract void setUnsei();
 
     public String getUnsei(){
@@ -39,6 +40,13 @@ public abstract class Unsei implements Fortune{
     }
     public void setGakumon(String gakumon) {
         this.gakumon=gakumon;
+    }
+
+    public String getOmikujicode() {
+        return omikujicode;
+    }
+    public void setOmikujicode(String omikujicode) {
+        this.omikujicode=omikujicode;
     }
 
     public String disp() throws IOException {
