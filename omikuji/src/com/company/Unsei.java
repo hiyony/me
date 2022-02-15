@@ -42,10 +42,10 @@ public abstract class Unsei implements Fortune{
         this.gakumon=gakumon;
     }
 
-    public String getOmikujicode() {
+    public String getOmikujicode(){
         return omikujicode;
     }
-    public void setOmikujicode(String omikujicode) {
+    public void setOmikujicode(String omikujicode){
         this.omikujicode=omikujicode;
     }
 

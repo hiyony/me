@@ -4,13 +4,11 @@ import java.io.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+
 
 public class OmikujiDB {
 
-    public void omikuji_db() throws IOException {
+    public void omikuji_db() throws Exception {
         String birthday;
         BufferedReader br3;
         DateTimeFormatter datetimeFP;
@@ -37,30 +35,23 @@ public class OmikujiDB {
         PreparedStatement pstmt = null;
         PreparedStatement pstmt2; PreparedStatement pstmt3;
         PreparedStatement pstmt4; PreparedStatement pstmt5;
-        PreparedStatement pstmt6;
-        String unsei_sql; String count_sql; String count_sql2;
-        String insertresult_sql; String omkjtbl_sql; String select_sql;
-        ResultSet rs; ResultSet rs2; ResultSet rs3;
+        PreparedStatement pstmt6; PreparedStatement pstmt7;
+        ResultSet rs; ResultSet rs2;
+        ResultSet rs3; ResultSet rs4;
+
         String server = "localhost"; //MySQL 서버주소 サーバーのアドレス
         String database = "omikuji"; //MySQL DB명　サーバーの名
         String user_name = "root"; //MySQL 서버ID　サーバーのID
         String password = "1005"; //MySQL 서버PW　サーバーのPW
 
-        //Unsei unsei = null;
-        Unsei unsei = new Unsei() {
-            @Override
-            public void setUnsei() {
-
-            }
-        };
-        List<Unsei> omikuji = new ArrayList<>();
+        Unsei unsei;
+        unsei = null;
         String path = "omikuji/omkj.csv";
         String line;
         String [] values;
+        String omikujicode="";
         int count = 0;
         BufferedReader br = null;
-        String omikujicode = null;
-
 
         // 접속 接続
         try {
@@ -69,8 +60,8 @@ public class OmikujiDB {
             conn = DriverManager.getConnection("jdbc:mysql://" + server + "/" + database, user_name, password);
 
             //COUNT() function: 행의 개수 출력, null은 포함안됨
-            count_sql = "SELECT COUNT(*) AS CNT FROM omikujii";
-            count_sql2 = "SELECT COUNT(*) AS CNT2 FROM fortunemaster";
+            String count_sql = "SELECT COUNT(*) AS CNT FROM omikujii";
+            String count_sql2 = "SELECT COUNT(*) AS CNT2 FROM fortunemaster";
             pstmt6 = conn.prepareStatement(count_sql2);
             pstmt3 = conn.prepareStatement(count_sql);
             rs = pstmt3.executeQuery();
@@ -82,11 +73,11 @@ public class OmikujiDB {
 
             //cnt == 0: 데이터베이스가 비어있을 경우
             if (cnt == 0 && cnt2 == 0) {
-                omkjtbl_sql = "INSERT INTO fortunemaster(unseicode, unseiname, renewalwriter, renewaldate)" +
+                String omkjtbl_sql = "INSERT INTO fortunemaster(unseicode, unseiname, renewalwriter, renewaldate)" +
                         "VALUES(?, ?, ?, ?)";
                 pstmt5 = conn.prepareStatement(omkjtbl_sql);
 
-                unsei_sql = "INSERT INTO omikujii(omikujicode, unseicode, negaigoto, akinai, gakumon, " +
+                String unsei_sql = "INSERT INTO omikujii(omikujicode, unseicode, negaigoto, akinai, gakumon, " +
                                                  "renewalwriter, renewaldate) " +
                                  "VALUES(?, ?, ?, ?, ?, ?, ?)"; //쿼리문　クエリ文
                 pstmt2 = conn.prepareStatement(unsei_sql); //쿼리를 실행할 객체를 생성(객체 생성시에 쿼리를 준다)
@@ -111,7 +102,7 @@ public class OmikujiDB {
                     pstmt5.setInt(1, count);
 
                     omikujicode = String.valueOf(count);
-                    pstmt2.setString(1, omikujicode);
+                    pstmt2.setString(1,omikujicode);
                     pstmt2.setInt(2, count);
                     //특정 내용을 데이터베이스에 적용시켜야 할 경우 executeUpdate() 메서드를 사용
                     //特定内容をデータベースに適用される場合、executeUpdate()　メソッドを使う
@@ -120,35 +111,48 @@ public class OmikujiDB {
                 }
             }
 
-            if(omikuji.size() != 0){
-                int rannum = new Random().nextInt(count+1);
-                unsei = omikuji.get(rannum);
-            }
-
-            select_sql = "SELECT omikujicode, unseicode, negaigoto, akinai, gakumon FROM omikujii";
-            pstmt4 = conn.prepareStatement(select_sql);
+            //ORDER BY RAND()로 SQL내에서 랜덤 값 츨력되도록 처리
+            //ORDER BY RAND()でSQLの内にランダムの値を出力するように処理
+            //LIMIT 0,1로 랜덤값이 한 개만 나올 수 있도록 처리
+            //LIMIT 0,1でランダムの値が一つだけ出力するように処理
+            String random_sql = "SELECT o.omikujicode as omikujicode," +
+                                       "o.unseicode as unseicode," +
+                                       "f.unseiname as unseiname," +
+                                       "o.negaigoto as negaigoto," +
+                                       "o.akinai as akinai," +
+                                       "o.gakumon as gakumon " +
+                                  "FROM omikujii as o, fortunemaster as f " +
+                                 "WHERE o.unseicode = f.unseicode " +
+                                 "ORDER BY RAND() LIMIT 0, 1";
+            pstmt4 = conn.prepareStatement(random_sql);
             rs2 = pstmt4.executeQuery();
 
+            //랜덤으로 나온 값을 저장해줌
+            //ランダムの値をセットする
             while (rs2.next()) {
-                unsei.setOmikujicode(omikujicode);
-                unsei = selectUnsei(rs2.getString("unseicode"));
+                unsei.setOmikujicode(rs2.getString("omikujicode"));
+                unsei = selectUnsei(rs2.getString("unseiname"));
                 unsei.setUnsei();
                 unsei.setNegaigoto(rs2.getString("negaigoto"));
                 unsei.setAkinai(rs2.getString("akinai"));
                 unsei.setGakumon(rs2.getString("gakumon"));
             }
 
-            insertresult_sql = "INSERT INTO result(uranaidate, birthday, omikujicode, renewalwriter, renewaldate) " +
+
+            //result 테이블에 결과값을 넣어줌
+            //result テーベルに結果値を入れる
+            String insertresult_sql = "INSERT INTO result(uranaidate, birthday, omikujicode, renewalwriter, renewaldate) " +
                     "VALUES(?, ?, ?, ?, ?)";
             pstmt = conn.prepareStatement(insertresult_sql);
 
             pstmt.setString(1, todayString);
             pstmt.setString(2, birthday);
-            pstmt.setString(3, unsei.getOmikujicode());
+            pstmt.setString(3, unsei.getUnsei());
             pstmt.setString(4, "ヒヨ");
             pstmt.setString(5, todayString);
 
             pstmt.executeUpdate();
+
             System.out.println(unsei.disp());
 
         } catch (SQLException e){
@@ -166,13 +170,8 @@ public class OmikujiDB {
     }
 
     public static Unsei selectUnsei(String unseistr) {
-        //Unsei unsei = null;
-        Unsei unsei = new Unsei() {
-            @Override
-            public void setUnsei() {
-
-            }
-        };
+        Unsei unsei;
+        unsei = null;
         switch (unseistr) {
             case "大吉":
                 unsei = new Daikichi();
@@ -198,7 +197,7 @@ public class OmikujiDB {
         return unsei;
     }
 
-    public static void main(String [] args) throws IOException {
+    public static void main(String [] args) throws Exception {
         OmikujiDB omikujiDB = new OmikujiDB();
         omikujiDB.omikuji_db();
     }
