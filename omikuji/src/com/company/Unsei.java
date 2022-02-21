@@ -49,7 +49,7 @@ public abstract class Unsei implements Fortune{
         this.omikujicode=omikujicode;
     }
 
-    public String disp() throws IOException {
+    public String disp() {
 //인터페이스로만 읽어들여야 하므로 추상클래스에서는 프로퍼티를 읽어오지 않아도 OK!
 //        Properties p = new Properties();
 //        String path = Unsei.class.getResource("fortune.properties").getPath();
