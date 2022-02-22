@@ -51,7 +51,7 @@ public class OmikujiDB {
 
         Unsei unsei = null;
 
-        String path = "omikuji/omkj.csv";
+        String path = "omikuji/csvomkj.csv";
         String line;
         String [] values;
         BufferedReader br = null;
@@ -64,15 +64,10 @@ public class OmikujiDB {
 
             //COUNT() function: 행의 개수 출력, null은 포함안됨
             String count_sql = "SELECT COUNT(*) AS CNT FROM omikujii";
-            String count_sql2 = "SELECT COUNT(*) AS CNT2 FROM fortunemaster";
             pstmt1 = conn.prepareStatement(count_sql);
-            pstmt2 = conn.prepareStatement(count_sql2);
             rs = pstmt1.executeQuery();
-            rs2 = pstmt2.executeQuery();
             rs.next();
-            rs2.next();
             int cnt = rs.getInt("CNT");
-            int cnt2 = rs2.getInt("CNT2");
 
             String omikujiID = "";
 
@@ -80,18 +75,14 @@ public class OmikujiDB {
             //3. fortunemaster テーブルとomikujiiテーブルが空いているかを確認
             //cnt == 0: 테이블 안의 결과 수를 count해서 데이터베이스가 비어있을 경우
             //        : テーブルの中の結果数をcountしてデータベースが空いている場合
-            if (cnt == 0 && cnt2 == 0) {
+            if (cnt == 0 ) {
                 int count = 0;
-                String omkjtbl_sql = "INSERT INTO fortunemaster(unseicode, unseiname, renewalwriter, " +
-                                                               "renewaldate, unseiwriter, unseiwritedate)" +
-                                          "VALUES(?, ?, ?, ?, ?, ?)";
-                pstmt1 = conn.prepareStatement(omkjtbl_sql);
 
                 String unsei_sql = "INSERT INTO omikujii(omikujicode, unseicode, negaigoto, akinai, gakumon, " +
-                                                 "renewalwriter, renewaldate, unseiwriter, unseiwritedate) " +
-                                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"; //쿼리문　クエリ文
+                        "renewalwriter, renewaldate, unseiwriter, unseiwritedate) " +
+                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"; //쿼리문　クエリ文
                 pstmt2 = conn.prepareStatement(unsei_sql); //쿼리를 실행할 객체를 생성(객체 생성시에 쿼리를 준다)
-                                                            //クエリを実装するオブジェクトを作る(オブジェクトを作るとクエリが与えられる）
+                //クエリを実装するオブジェクトを作る(オブジェクトを作るとクエリが与えられる）
 
                 //파일에서 오미쿠지 가져오기 ファイルからおみくじを読み込む
                 br = new BufferedReader(new FileReader(path));
@@ -100,30 +91,22 @@ public class OmikujiDB {
                 br.readLine();
                 while ((line = br.readLine()) != null) {
                     values = line.split(",");
-                    pstmt1.setString(2, values[0]);
-                    pstmt1.setString(3, "ヒヨ");
-                    pstmt1.setString(4, todayString);
-                    pstmt1.setString(5, "ヒヨ");
-                    pstmt1.setString(6, todayString);
 
-                    pstmt2.setString(3, values[1]);
-                    pstmt2.setString(4, values[2]);
-                    pstmt2.setString(5, values[3]);
+                    pstmt2.setInt(2, Integer.parseInt(values[1]));
+                    pstmt2.setString(3, values[2]);
+                    pstmt2.setString(4, values[3]);
+                    pstmt2.setString(5, values[4]);
                     pstmt2.setString(6, "ヒヨ");
                     pstmt2.setString(7, todayString);
                     pstmt2.setString(8, "ヒヨ");
                     pstmt2.setString(9, todayString);
                     count++;
 
-                    pstmt1.setInt(1, count);
-
                     String omikujicode = String.valueOf(count);
                     pstmt2.setString(1,omikujicode);
-                    pstmt2.setInt(2, count);
 
                     //특정 내용을 데이터베이스에 적용시켜야 할 경우 executeUpdate() 메서드를 사용
                     //特定内容をデータベースに適用される場合、executeUpdate()　メソッドを使う
-                    pstmt1.executeUpdate();
                     pstmt2.executeUpdate();
                 }
                 pstmt1 = conn.prepareStatement(count_sql);
@@ -159,10 +142,10 @@ public class OmikujiDB {
                                         "o.negaigoto as negaigoto, " +
                                         "o.akinai as akinai, " +
                                         "o.gakumon as gakumon " +
-                                   "FROM omikujii o " +
-                                   "JOIN fortunemaster f " +
-                                     "ON f.unseicode = o.unseicode " +
-                                  "WHERE o.omikujicode = ?";
+                                  "FROM omikujii o " +
+                                  "JOIN fortunemaster f " +
+                                    "ON f.unseicode = o.unseicode " +
+                                 "WHERE o.omikujicode = ?";
             pstmt4 = conn.prepareStatement(result_sql);
             pstmt4.setString(1, omikujiID); //o.omikujicode = ?
             ResultSet rs4 = pstmt4.executeQuery();
@@ -182,8 +165,8 @@ public class OmikujiDB {
                 //7. result 테이블에 결과값을 넣어줌
                 //7. result テーベルに結果値を入れる
                 String insertresult_sql = "INSERT INTO unseiresult(uranaidate, birthday, omikujicode, renewalwriter, " +
-                                                             "renewaldate, unseiwriter, unseiwritedate) " +
-                                               "VALUES(?, ?, ?, ?, ?, ?, ?)";
+                        "renewaldate, unseiwriter, unseiwritedate) " +
+                        "VALUES(?, ?, ?, ?, ?, ?, ?)";
                 pstmt5 = conn.prepareStatement(insertresult_sql);
 
                 pstmt5.setString(1, todayString);
