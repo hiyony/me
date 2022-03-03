@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="exploded-war" name="WebAppTest:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/WebAppTest_war_exploded</output-path>
-    <root id="root" />
-  </artifact>
-</component>

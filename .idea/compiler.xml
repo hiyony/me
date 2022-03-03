@@ -5,6 +5,9 @@
       <module name="OmikujiServlet" target="1.8" />
       <module name="OmikujiServlet.main" target="1.8" />
       <module name="OmikujiServlet.test" target="1.8" />
+      <module name="Omikujiweb" target="1.8" />
+      <module name="Omikujiweb.main" target="1.8" />
+      <module name="Omikujiweb.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

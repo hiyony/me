@@ -1,0 +1,115 @@
+NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+24-Feb-2022 17:10:56.031 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 서버 버전 이름:    Apache Tomcat/10.0.16
+24-Feb-2022 17:10:56.036 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server 빌드 시각:  Jan 15 2022 13:19:56 UTC
+24-Feb-2022 17:10:56.036 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server 버전 번호:  10.0.16.0
+24-Feb-2022 17:10:56.036 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 운영체제 이름:     Mac OS X
+24-Feb-2022 17:10:56.037 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 운영체제 버전:     12.1
+24-Feb-2022 17:10:56.037 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 아키텍처:          x86_64
+24-Feb-2022 17:10:56.037 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 자바 홈:           /Users/yeoni/Library/Java/JavaVirtualMachines/openjdk-17.0.2/Contents/Home
+24-Feb-2022 17:10:56.037 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM 버전:          17.0.2+8-86
+24-Feb-2022 17:10:56.037 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM 벤더:          Oracle Corporation
+24-Feb-2022 17:10:56.037 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:     /usr/local/apache-tomcat-10.0.16
+24-Feb-2022 17:10:56.037 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:     /usr/local/apache-tomcat-10.0.16
+24-Feb-2022 17:10:56.052 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.lang=ALL-UNNAMED
+24-Feb-2022 17:10:56.053 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.io=ALL-UNNAMED
+24-Feb-2022 17:10:56.053 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.util=ALL-UNNAMED
+24-Feb-2022 17:10:56.053 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+24-Feb-2022 17:10:56.053 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+24-Feb-2022 17:10:56.053 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.util.logging.config.file=/Library/Tomcat10/conf/logging.properties
+24-Feb-2022 17:10:56.054 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+24-Feb-2022 17:10:56.054 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djdk.tls.ephemeralDHKeySize=2048
+24-Feb-2022 17:10:56.055 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+24-Feb-2022 17:10:56.055 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+24-Feb-2022 17:10:56.055 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dignore.endorsed.dirs=
+24-Feb-2022 17:10:56.055 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dcatalina.base=/Library/Tomcat10
+24-Feb-2022 17:10:56.055 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dcatalina.home=/Library/Tomcat10
+24-Feb-2022 17:10:56.055 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.io.tmpdir=/Library/Tomcat10/temp
+24-Feb-2022 17:10:56.063 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent 프로덕션 환경들에서 최적의 성능을 제공하는, APR 기반 Apache Tomcat Native 라이브러리가, 다음 java.library.path에서 발견되지 않습니다: [/Users/yeoni/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+24-Feb-2022 17:10:56.407 INFO [main] org.apache.coyote.AbstractProtocol.init 프로토콜 핸들러 ["http-nio-8080"]을(를) 초기화합니다.
+24-Feb-2022 17:10:56.441 INFO [main] org.apache.catalina.startup.Catalina.load [662] 밀리초 내에 서버가 초기화되었습니다.
+24-Feb-2022 17:10:56.485 INFO [main] org.apache.catalina.core.StandardService.startInternal 서비스 [Catalina]을(를) 시작합니다.
+24-Feb-2022 17:10:56.487 INFO [main] org.apache.catalina.core.StandardEngine.startInternal 서버 엔진을 시작합니다: [Apache Tomcat/10.0.16]
+24-Feb-2022 17:10:56.501 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/docs]을(를) 배치합니다.
+24-Feb-2022 17:10:56.788 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/docs]에 대한 배치가 [285] 밀리초에 완료되었습니다.
+24-Feb-2022 17:10:56.788 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/manager]을(를) 배치합니다.
+24-Feb-2022 17:10:56.836 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/manager]에 대한 배치가 [48] 밀리초에 완료되었습니다.
+24-Feb-2022 17:10:56.837 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/examples]을(를) 배치합니다.
+24-Feb-2022 17:10:57.166 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/examples]에 대한 배치가 [329] 밀리초에 완료되었습니다.
+24-Feb-2022 17:10:57.166 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/ROOT]을(를) 배치합니다.
+24-Feb-2022 17:10:57.197 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/ROOT]에 대한 배치가 [31] 밀리초에 완료되었습니다.
+24-Feb-2022 17:10:57.197 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/host-manager]을(를) 배치합니다.
+24-Feb-2022 17:10:57.222 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/host-manager]에 대한 배치가 [25] 밀리초에 완료되었습니다.
+24-Feb-2022 17:10:57.226 INFO [main] org.apache.coyote.AbstractProtocol.start 프로토콜 핸들러 ["http-nio-8080"]을(를) 시작합니다.
+24-Feb-2022 17:10:57.238 INFO [main] org.apache.catalina.startup.Catalina.start 서버가 [797] 밀리초 내에 시작되었습니다.
+28-Feb-2022 13:27:37.655 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 13:27:46.992 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/Gradle___com_example___OmikujiServlet_1_0_SNAPSHOT_war]을(를) 배치합니다.
+28-Feb-2022 13:27:47.259 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/Gradle___com_example___OmikujiServlet_1_0_SNAPSHOT_war]에 대한 배치가 [251] 밀리초에 완료되었습니다.
+28-Feb-2022 13:29:24.406 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 13:51:03.720 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 13:51:57.149 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 13:52:00.727 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/OmikujiServlet]을(를) 배치합니다.
+28-Feb-2022 13:52:00.840 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/OmikujiServlet]에 대한 배치가 [113] 밀리초에 완료되었습니다.
+28-Feb-2022 13:52:45.885 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 13:52:50.901 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.reload 컨텍스트 []을(를) 다시 로드합니다.
+28-Feb-2022 13:52:50.903 INFO [Catalina-utility-1] org.apache.catalina.core.StandardContext.reload 이름이 []인 컨텍스트를 다시 로드하는 작업이 시작되었습니다.
+28-Feb-2022 13:52:51.089 INFO [Catalina-utility-1] org.apache.catalina.core.StandardContext.reload 이름이 []인 컨텍스트를 다시 로드하는 것을 완료했습니다.
+28-Feb-2022 14:50:07.228 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 14:56:11.601 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 15:04:30.743 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 15:06:11.713 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 15:19:54.405 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 15:19:57.004 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.reload 컨텍스트 []을(를) 다시 로드합니다.
+28-Feb-2022 15:19:57.004 INFO [Catalina-utility-2] org.apache.catalina.core.StandardContext.reload 이름이 []인 컨텍스트를 다시 로드하는 작업이 시작되었습니다.
+28-Feb-2022 15:19:57.578 INFO [Catalina-utility-2] org.apache.catalina.core.StandardContext.reload 이름이 []인 컨텍스트를 다시 로드하는 것을 완료했습니다.
+28-Feb-2022 15:22:11.054 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 15:22:17.689 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.reload 컨텍스트 []을(를) 다시 로드합니다.
+28-Feb-2022 15:22:17.689 INFO [Catalina-utility-1] org.apache.catalina.core.StandardContext.reload 이름이 []인 컨텍스트를 다시 로드하는 작업이 시작되었습니다.
+28-Feb-2022 15:22:17.798 INFO [Catalina-utility-1] org.apache.catalina.core.StandardContext.reload 이름이 []인 컨텍스트를 다시 로드하는 것을 완료했습니다.
+28-Feb-2022 15:24:26.527 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 15:29:12.629 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 15:31:33.708 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 15:32:26.385 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 15:35:09.504 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 15:37:54.207 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 21:28:10.070 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 21:41:43.884 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.undeploy 컨텍스트 []의 배치를 제거합니다.
+28-Feb-2022 21:55:53.289 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 21:56:45.371 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 21:56:54.732 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/ROOT]을(를) 배치합니다.
+28-Feb-2022 21:56:54.898 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/usr/local/apache-tomcat-10.0.16/webapps/ROOT]에 대한 배치가 [167] 밀리초에 완료되었습니다.
+28-Feb-2022 21:57:18.118 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 21:57:46.429 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 21:58:52.325 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 21:59:25.868 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 21:59:55.423 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 22:00:34.683 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 22:01:07.779 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 22:01:42.677 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 22:02:55.694 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 22:03:32.448 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 22:04:41.885 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 22:13:24.593 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+28-Feb-2022 22:13:59.843 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 16:58:47.960 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 16:59:24.685 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 17:01:33.562 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 17:03:51.433 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 17:05:48.116 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 17:09:13.610 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 17:14:34.144 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 17:17:07.082 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 17:23:58.124 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 17:31:09.131 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 17:38:50.314 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 17:41:22.472 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 17:46:27.781 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 17:55:02.339 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 18:00:07.273 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 18:07:05.861 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 18:15:12.458 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 18:15:58.054 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 18:48:10.821 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 19:13:55.417 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 19:15:03.976 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 19:15:27.814 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+03-Mar-2022 19:16:14.013 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.

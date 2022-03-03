@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <servlet>
+        <servlet-name>OmikujiServlet</servlet-name>
+        <servlet-class>com.company.OmikujiServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OmikujiInputServlet</servlet-name>
+        <servlet-class>com.company.OmikujiInputServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OmikujiServlet</servlet-name>
+        <url-pattern>/omkjservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OmikujiInputServlet</servlet-name>
+        <url-pattern>/omkjiservlet</url-pattern>
+    </servlet-mapping>
+</web-app>
