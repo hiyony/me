@@ -5,6 +5,7 @@ import javax.servlet.http.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,23 +17,37 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class OmikujiInputServlet extends HttpServlet {
+public class InputServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private static final String path = "omikuji/csvomkj.csv";
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
 
-        String birthday;
         DateTimeFormatter datetimeFP;
 
-
         //直したい部分
-        birthday = request.getParameter("birthday");
-        birthday = checkBday.checkBirthday();
+        String birthday = request.getParameter("birthday");
+        Boolean checkbday = checkBday.checkBirthday(birthday);
 
+        while(checkbday == false){
+            PrintWriter out = response.getWriter();
+            out.print("<!DOCTYPE html>");
+            out.print("<html><head>");
+            out.print("<title>Omikuji Web Service</title>");
+            out.print("<style>");
+            out.print("#input-form input{ padding: 5px 10px; text-align: center;}");
+            out.print("</style></head>");
+            out.print("<body>");
+            out.print("<h1>Omikuji Web Service</h1>");
+            out.print("<span>入力された形式が正しくありません。</span>");
+            out.print("<br><span>yyyyMMdd形式の８文字でお願いします。</span>");
+            out.print("<br><a href = 'javascript:history.go(-1)'>戻る");
+            out.print("</a></body></html>");
+            out.close();
+        }
 
         LocalDate today = LocalDate.now();
         datetimeFP = DateTimeFormatter.ofPattern("yyyyMMdd");

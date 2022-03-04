@@ -8,15 +8,15 @@
         <servlet-class>com.company.OmikujiServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>OmikujiInputServlet</servlet-name>
-        <servlet-class>com.company.OmikujiInputServlet</servlet-class>
+        <servlet-name>InputServlet</servlet-name>
+        <servlet-class>com.company.InputServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>OmikujiServlet</servlet-name>
         <url-pattern>/omkjservlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>OmikujiInputServlet</servlet-name>
-        <url-pattern>/omkjiservlet</url-pattern>
+        <servlet-name>InputServlet</servlet-name>
+        <url-pattern>/inputservlet</url-pattern>
     </servlet-mapping>
 </web-app>

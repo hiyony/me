@@ -22,11 +22,21 @@ public class OmikujiDB {
     public void omikuji_db() throws Exception {
 
         //2. 생일 입력 요구 誕生日の入力を求める
-        String birthday;
         DateTimeFormatter datetimeFP;
 
         System.out.print("お誕生日はいつですか？(yyyyMMdd 形式)　");
-        birthday = checkBday.checkBirthday();
+
+        BufferedReader br2 = new BufferedReader(new InputStreamReader(System.in));
+        String birthday = br2.readLine();
+
+        Boolean checkbday = checkBday.checkBirthday(birthday);
+
+        while(checkbday == false){
+            System.out.print("yyyyMMdd形式の8文字列でお願いします。");
+            br2 = new BufferedReader(new InputStreamReader(System.in));
+            birthday = br2.readLine();
+            checkbday = checkBday.checkBirthday(birthday);
+        }
 
         LocalDate today = LocalDate.now();
         datetimeFP = DateTimeFormatter.ofPattern("yyyyMMdd");

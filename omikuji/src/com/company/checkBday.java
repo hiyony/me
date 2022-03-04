@@ -6,30 +6,19 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 
 public class checkBday {
-    public static String checkBirthday() throws IOException {
-        String bday;
-        while (true) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            bday = br.readLine();
+    public static Boolean checkBirthday(String birthday) {
 
+        while (true) {
             SimpleDateFormat dateFP;
 
-
-            if (bday.length() != 8) {
-                System.out.print("yyyyMMddの8個の数字でお願いします : ");
-                continue;
-            }
             try {
                 dateFP = new SimpleDateFormat("yyyyMMdd");
                 dateFP.setLenient(false);
-                dateFP.parse(bday);
-                break;
+                dateFP.parse(birthday);
+                return true;
             } catch (Exception e) {
-                System.out.println("入力された誕生日の日付形式が正しくありません。");
-                System.out.println("yyyyMMddの形式でお願いします。");
+                return false;
             }
-            break;
         }
-        return bday;
     }
 }
