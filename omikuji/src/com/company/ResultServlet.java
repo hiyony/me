@@ -175,13 +175,8 @@ public class ResultServlet extends HttpServlet {
 
             //값을 저장해줌
             //値をセットする
-            //Unsei unsei = null;
-            Unsei unsei = new Unsei() {
-                @Override
-                public void setUnsei() {
+            Unsei unsei = null;
 
-                }
-            };
 
             //6. omikujiID를 받아와서 오미쿠지 값을 받아옴
             //6. omikujiIDを受け入れておみくじ値を受け入れる
@@ -246,13 +241,8 @@ public class ResultServlet extends HttpServlet {
     }
 
     public static Unsei selectUnsei(String unseistr) {
-        //Unsei unsei = null;
-        Unsei unsei = new Unsei() {
-            @Override
-            public void setUnsei() {
+        Unsei unsei = null;
 
-            }
-        };
         switch (unseistr) {
             case "大吉":
                 unsei = new Daikichi();
