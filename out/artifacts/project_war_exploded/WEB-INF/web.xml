@@ -4,19 +4,19 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <servlet>
-        <servlet-name>OmikujiServlet</servlet-name>
-        <servlet-class>com.company.OmikujiServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>InputServlet</servlet-name>
         <servlet-class>com.company.InputServlet</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>OmikujiServlet</servlet-name>
-        <url-pattern>/omkjservlet</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>ResultServlet</servlet-name>
+        <servlet-class>com.company.ResultServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InputServlet</servlet-name>
         <url-pattern>/inputservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResultServlet</servlet-name>
+        <url-pattern>/rsservlet</url-pattern>
     </servlet-mapping>
 </web-app>

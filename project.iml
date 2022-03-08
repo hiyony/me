@@ -9,6 +9,7 @@
         <webroots>
           <root url="file://$MODULE_DIR$/omikuji/src/com/company" relative="/" />
         </webroots>
+        <sourceRoots />
       </configuration>
     </facet>
   </component>

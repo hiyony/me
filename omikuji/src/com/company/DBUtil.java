@@ -14,9 +14,14 @@ public class DBUtil {
 
         Connection con = null;
 
+
         try {
+            //No suitable driverエラーのために追加
+            Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://" + server + "/" + database, user_name, password);
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return con;
