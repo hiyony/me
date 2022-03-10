@@ -28,20 +28,29 @@ public class InputServlet extends HttpServlet {
         out.print("<input type=\"text\" name=\"birthday\" placeholder=\"yyyyMMddの形式\">");
         out.print("<input type=\"submit\" value=\"確認\">");
 
+        String birthday = request.getParameter("birthday");
+        Boolean checkbday = checkBday.checkBirthday(birthday);
+        String checkmsg = (String) request.getAttribute("checkmessage");
 
-        //ResultServletから読み込んだcheckmessageを出力する
-        //ResultServlet으로부터 받은 checkmessage 출력하기
+        if(checkmsg != null){
+            if(!checkbday){
+                out.print("<br><br><span>" + checkmsg + "</span");
+            } else{
+                request.setAttribute("birthday", birthday);
+                request.getRequestDispatcher("rsservlet").forward(request, response);
+            }
+        }
 
         //request.getAttributeはObject型なのでString型で変換する
         //request.getAttribute는 Object형이기 때문에 String으로 형변환
-        String checkmsg = (String) request.getAttribute("checkmessage");
-
-        //nullではない場合だけエラーメッセージを表示する
-        //이 처리를 해주지 않으면 null인 상태가 화면에 표시됨
-        //따라서 null이 아닐 경우에만 에러메세지가 뜰 수 있도록 표시해줌
-        if(checkmsg != null) {
-            out.print("<br><br><span>" + checkmsg + "</span>");
-        }
+//        String checkmsg = (String) request.getAttribute("checkmessage");
+//
+//        //nullではない場合だけエラーメッセージを表示する
+//        //이 처리를 해주지 않으면 null인 상태가 화면에 표시됨
+//        //따라서 null이 아닐 경우에만 에러메세지가 뜰 수 있도록 표시해줌
+//        if(checkmsg != null) {
+//            out.print("<br><br><span>" + checkmsg + "</span>");
+//        }
 
         out.print("</form></body></html>");
         out.close();

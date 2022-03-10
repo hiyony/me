@@ -21,17 +21,29 @@ public class ResultServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
 
+        //InputServletから誕生日パラメーターを読み込んでcheckBirthdayで文字数チェックする
         //InputServlet에서 생일 파라미터를 받아와서 checkBirthday에서 문자수 체크
-        String birthday = request.getParameter("birthday");
-        Boolean checkbday = checkBday.checkBirthday(birthday);
 
-        //true 아니면 false를 리턴해주기 때문에 false를 리턴할 경우
-        if(!checkbday){
-            //RequestDispatcher : servlet, JSP가 다른 컴포넌트로 수행을 옮기는 경우 사용
-            //forward 메소드가 servlet이 다른 컴포넌트에게 수행을 넘기는 작업을 함
-            request.setAttribute("checkmessage", "入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。");
-            request.getRequestDispatcher("inputservlet").forward(request, response);
-        }
+        String birthday = (String) request.getAttribute("birthday");
+
+        String checkmsg = "入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。";
+        request.setAttribute("checkmessage", checkmsg);
+        request.getRequestDispatcher("inputservlet").forward(request, response);
+
+//        String birthday = request.getParameter("birthday");
+//        Boolean checkbday = checkBday.checkBirthday(birthday);
+//
+//        //入力された誕生日形式を検査してfalseをリターンする場合
+//        //생일을 검사하고 false를 리턴할 경우(yyyyMMdd의 형태가 아닐 때)
+//        if(!checkbday){
+//
+//            //RequestDispatcher : servlet, JSPが他のコンポーネントで移動する場合
+//            //RequestDispatcher : servlet, JSP가 다른 컴포넌트로 수행을 옮기는 경우 사용
+//            //forwardメソッドはservletが他のコンポーネントで移動するために使う
+//            //forward 메소드가 servlet이 다른 컴포넌트에게 수행을 넘기는 작업을 함
+//            request.setAttribute("checkmessage", "入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。");
+//            request.getRequestDispatcher("inputservlet").forward(request, response);
+//        }
 
 //        while(checkbday == false){
 //            PrintWriter out = response.getWriter();
@@ -218,9 +230,14 @@ public class ResultServlet extends HttpServlet {
                 pstmt7.executeUpdate();
             }
 
-            //8. 콘솔로 결과 출력
-            //8. コンソールで結果出力する
-            System.out.println(unsei.disp());
+            JspBeans jspbeans = new JspBeans();
+            jspbeans.setUnsei();
+            jspbeans.setNegaigoto(unsei.getNegaigoto());
+            jspbeans.setAkinai(unsei.getAkinai());
+            jspbeans.setGakumon(unsei.getGakumon());
+
+            request.setAttribute("JspBeans", jspbeans);
+            request.getRequestDispatcher("OmikujiJSP.jsp").forward(request, response);
 
         } catch (SQLException e){
             e.printStackTrace();
