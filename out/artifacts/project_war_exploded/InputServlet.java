@@ -30,16 +30,18 @@ public class InputServlet extends HttpServlet {
 
         String birthday = request.getParameter("birthday");
         Boolean checkbday = checkBday.checkBirthday(birthday);
-        String checkmsg = (String) request.getAttribute("checkmessage");
+        String checkmsg = "入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。";
 
-        if(checkmsg != null){
-            if(!checkbday){
-                out.print("<br><br><span>" + checkmsg + "</span");
-            } else{
-                request.setAttribute("birthday", birthday);
-                request.getRequestDispatcher("rsservlet").forward(request, response);
-            }
+        System.out.println(checkbday);
+
+        if(checkbday.equals(false)){
+            out.print("<br><br><span>" + checkmsg + "</span");
+        } else{
+            request.setAttribute("birthday", birthday);
+            RequestDispatcher rd = request.getRequestDispatcher("rsservlet");
+            rd.forward(request, response);
         }
+
 
         //request.getAttributeはObject型なのでString型で変換する
         //request.getAttribute는 Object형이기 때문에 String으로 형변환

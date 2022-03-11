@@ -26,9 +26,9 @@ public class ResultServlet extends HttpServlet {
 
         String birthday = (String) request.getAttribute("birthday");
 
-        String checkmsg = "入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。";
-        request.setAttribute("checkmessage", checkmsg);
-        request.getRequestDispatcher("inputservlet").forward(request, response);
+//        String checkmsg = "入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。";
+//        request.setAttribute("checkmessage", checkmsg);
+//        request.getRequestDispatcher("inputservlet").forward(request, response);
 
 //        String birthday = request.getParameter("birthday");
 //        Boolean checkbday = checkBday.checkBirthday(birthday);
@@ -238,6 +238,7 @@ public class ResultServlet extends HttpServlet {
 
             request.setAttribute("JspBeans", jspbeans);
             request.getRequestDispatcher("OmikujiJSP.jsp").forward(request, response);
+
 
         } catch (SQLException e){
             e.printStackTrace();

@@ -161,3 +161,16 @@ NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED -
 10-Mar-2022 16:40:19.745 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
 10-Mar-2022 16:40:43.313 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
 10-Mar-2022 16:41:19.699 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+10-Mar-2022 17:34:34.062 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+10-Mar-2022 17:42:19.893 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+11-Mar-2022 12:12:35.476 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+11-Mar-2022 12:51:28.765 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+11-Mar-2022 12:52:18.864 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+11-Mar-2022 12:56:05.748 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+11-Mar-2022 14:41:48.935 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+11-Mar-2022 14:48:17.194 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+11-Mar-2022 14:49:38.509 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+11-Mar-2022 14:50:45.084 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+11-Mar-2022 14:52:28.226 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+11-Mar-2022 14:54:11.352 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
+11-Mar-2022 14:57:48.603 WARNING [main] org.apache.catalina.core.StandardServer.await 유효하지 않은 셧다운 명령 []을(를) 받았습니다.
