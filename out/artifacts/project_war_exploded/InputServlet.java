@@ -29,33 +29,44 @@ public class InputServlet extends HttpServlet {
         out.print("<input type=\"submit\" value=\"確認\">");
 
         String birthday = request.getParameter("birthday");
-        Boolean checkbday = checkBday.checkBirthday(birthday);
         String checkmsg = "入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。";
 
-        System.out.println(checkbday);
-
-        if(checkbday.equals(false)){
-            out.print("<br><br><span>" + checkmsg + "</span");
-        } else{
-            request.setAttribute("birthday", birthday);
-            RequestDispatcher rd = request.getRequestDispatcher("rsservlet");
-            rd.forward(request, response);
+        if (birthday != null) {
+            Boolean checkbday = checkBday.checkBirthday(birthday);
+            String check = String.valueOf(checkbday);
+            switch (check){
+                case "true" :
+                    request.setAttribute("birthday", birthday);
+                    RequestDispatcher rd = request.getRequestDispatcher("rsservlet");
+                    rd.forward(request, response);
+                case "false" :
+                    out.print("<br><br><span>" + checkmsg + "</span");
+            }
         }
 
-
-        //request.getAttributeはObject型なのでString型で変換する
-        //request.getAttribute는 Object형이기 때문에 String으로 형변환
-//        String checkmsg = (String) request.getAttribute("checkmessage");
+//            if (checkbday.equals(false)){
+//                out.print("<br><br><span>" + checkmsg + "</span");
 //
-//        //nullではない場合だけエラーメッセージを表示する
-//        //이 처리를 해주지 않으면 null인 상태가 화면에 표시됨
-//        //따라서 null이 아닐 경우에만 에러메세지가 뜰 수 있도록 표시해줌
-//        if(checkmsg != null) {
-//            out.print("<br><br><span>" + checkmsg + "</span>");
-//        }
+//            }
+//            else if (checkbday.equals(true)) {
+//                request.setAttribute("birthday", birthday);
+//                RequestDispatcher rd = request.getRequestDispatcher("rsservlet");
+//                rd.forward(request, response);
+//            }
+            // request.getAttributeはObject型なのでString型で変換する
+//          //request.getAttribute는 Object형이기 때문에 String으로 형변환
+//          String checkmsg = (String) request.getAttribute("checkmessage");
+////
+////        //nullではない場合だけエラーメッセージを表示する
+////        //이 처리를 해주지 않으면 null인 상태가 화면에 표시됨
+////        //따라서 null이 아닐 경우에만 에러메세지가 뜰 수 있도록 표시해줌
+//          if(checkmsg != null) {
+//              out.print("<br><br><span>" + checkmsg + "</span>");
+//          }
 
-        out.print("</form></body></html>");
-        out.close();
+            out.print("</form></body></html>");
+            out.close();
+        }
 
     }
-}
+

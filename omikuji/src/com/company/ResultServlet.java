@@ -21,10 +21,10 @@ public class ResultServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
 
-        //InputServletから誕生日パラメーターを読み込んでcheckBirthdayで文字数チェックする
-        //InputServlet에서 생일 파라미터를 받아와서 checkBirthday에서 문자수 체크
 
         String birthday = (String) request.getAttribute("birthday");
+        //InputServletから誕生日パラメーターを読み込んでcheckBirthdayで文字数チェックする
+        //InputServlet에서 생일 파라미터를 받아와서 checkBirthday에서 문자수 체크
 
 //        String checkmsg = "入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。";
 //        request.setAttribute("checkmessage", checkmsg);
@@ -43,23 +43,6 @@ public class ResultServlet extends HttpServlet {
 //            //forward 메소드가 servlet이 다른 컴포넌트에게 수행을 넘기는 작업을 함
 //            request.setAttribute("checkmessage", "入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。");
 //            request.getRequestDispatcher("inputservlet").forward(request, response);
-//        }
-
-//        while(checkbday == false){
-//            PrintWriter out = response.getWriter();
-//            out.print("<!DOCTYPE html>");
-//            out.print("<html><head>");
-//            out.print("<title>Omikuji Web Service</title>");
-//            out.print("<style>");
-//            out.print("#input-form input{ padding: 5px 10px; text-align: center;}");
-//            out.print("</style></head>");
-//            out.print("<body>");
-//            out.print("<h1>Omikuji Web Service</h1>");
-//            out.print("<span>入力された形式が正しくありません。</span>");
-//            out.print("<br><span>yyyyMMdd形式の８文字でお願いします。</span>");
-//            out.print("<br><a href = 'javascript:history.go(-1)'>戻る");
-//            out.print("</a></body></html>");
-//            out.close();
 //        }
 
 
@@ -181,8 +164,13 @@ public class ResultServlet extends HttpServlet {
 
             //값을 저장해줌
             //値をセットする
-            Unsei unsei = null;
+            //Unsei unsei = null;
+            Unsei unsei = new Unsei() {
+                @Override
+                public void setUnsei() {
 
+                }
+            };
 
             //6. omikujiID를 받아와서 오미쿠지 값을 받아옴
             //6. omikujiIDを受け入れておみくじ値を受け入れる
@@ -253,8 +241,13 @@ public class ResultServlet extends HttpServlet {
     }
 
     public static Unsei selectUnsei(String unseistr) {
-        Unsei unsei = null;
+        //Unsei unsei = null;
+        Unsei unsei = new Unsei() {
+            @Override
+            public void setUnsei() {
 
+            }
+        };
         switch (unseistr) {
             case "大吉":
                 unsei = new Daikichi();
