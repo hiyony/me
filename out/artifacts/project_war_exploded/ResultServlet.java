@@ -15,28 +15,20 @@ import java.util.Random;
 public class ResultServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private static final String path = "omikuji/csvomkj.csv";
+    private static final String path = "/Users/yeoni/Documents/GitHub/project/omikuji/csvomkj.csv";
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
-
 
         String birthday = (String) request.getAttribute("birthday");
         //InputServletから誕生日パラメーターを読み込んでcheckBirthdayで文字数チェックする
         //InputServlet에서 생일 파라미터를 받아와서 checkBirthday에서 문자수 체크
-
-//        String checkmsg = "入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。";
-//        request.setAttribute("checkmessage", checkmsg);
-//        request.getRequestDispatcher("inputservlet").forward(request, response);
-
-//        String birthday = request.getParameter("birthday");
 //        Boolean checkbday = checkBday.checkBirthday(birthday);
 //
 //        //入力された誕生日形式を検査してfalseをリターンする場合
 //        //생일을 검사하고 false를 리턴할 경우(yyyyMMdd의 형태가 아닐 때)
 //        if(!checkbday){
-//
 //            //RequestDispatcher : servlet, JSPが他のコンポーネントで移動する場合
 //            //RequestDispatcher : servlet, JSP가 다른 컴포넌트로 수행을 옮기는 경우 사용
 //            //forwardメソッドはservletが他のコンポーネントで移動するために使う
@@ -44,7 +36,7 @@ public class ResultServlet extends HttpServlet {
 //            request.setAttribute("checkmessage", "入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。");
 //            request.getRequestDispatcher("inputservlet").forward(request, response);
 //        }
-
+//
 
         LocalDate today = LocalDate.now();
         DateTimeFormatter datetimeFP = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -164,13 +156,8 @@ public class ResultServlet extends HttpServlet {
 
             //값을 저장해줌
             //値をセットする
-            //Unsei unsei = null;
-            Unsei unsei = new Unsei() {
-                @Override
-                public void setUnsei() {
+            Unsei unsei = null;
 
-                }
-            };
 
             //6. omikujiID를 받아와서 오미쿠지 값을 받아옴
             //6. omikujiIDを受け入れておみくじ値を受け入れる
@@ -222,6 +209,7 @@ public class ResultServlet extends HttpServlet {
             request.setAttribute("JspBeans", jspbeans);
             request.getRequestDispatcher("OmikujiJSP.jsp").forward(request, response);
 
+            conn.commit();
 
         } catch (SQLException e){
             e.printStackTrace();
@@ -241,13 +229,8 @@ public class ResultServlet extends HttpServlet {
     }
 
     public static Unsei selectUnsei(String unseistr) {
-        //Unsei unsei = null;
-        Unsei unsei = new Unsei() {
-            @Override
-            public void setUnsei() {
+        Unsei unsei = null;
 
-            }
-        };
         switch (unseistr) {
             case "大吉":
                 unsei = new Daikichi();
