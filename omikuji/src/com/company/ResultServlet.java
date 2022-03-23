@@ -42,7 +42,7 @@ public class ResultServlet extends HttpServlet {
         DateTimeFormatter datetimeFP = DateTimeFormatter.ofPattern("yyyyMMdd");
         String todayString = today.format(datetimeFP);
 
-        Connection conn = null;
+        Connection conn;
         BufferedReader br = null;
 
         try {
@@ -200,6 +200,7 @@ public class ResultServlet extends HttpServlet {
                 pstmt7.executeUpdate();
             }
 
+
             JspBeans jspbeans = new JspBeans();
             jspbeans.setUnsei();
             jspbeans.setNegaigoto(unsei.getNegaigoto());
@@ -209,22 +210,18 @@ public class ResultServlet extends HttpServlet {
             request.setAttribute("JspBeans", jspbeans);
             request.getRequestDispatcher("OmikujiJSP.jsp").forward(request, response);
 
-            conn.commit();
+
 
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
             //해제 解除
-            try{
-                if(br!=null) {
-                    br.close();
-                }
-                if(conn != null){
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if(br!=null) {
+                br.close();
             }
+//                if(conn != null){
+//                    conn.close();
+//                }
         }
     }
 

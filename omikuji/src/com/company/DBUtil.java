@@ -12,18 +12,18 @@ public class DBUtil {
         String user_name = "root"; //MySQL 서버ID　サーバーのID
         String password = "1005"; //MySQL 서버PW　サーバーのPW
 
-        Connection con = null;
+        Connection conn = null;
 
 
         try {
             //No suitable driverエラーのために追加
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://" + server + "/" + database, user_name, password);
+            conn = DriverManager.getConnection("jdbc:mysql://" + server + "/" + database, user_name, password);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return con;
+        return conn;
     }
 }

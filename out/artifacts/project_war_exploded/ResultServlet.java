@@ -42,7 +42,7 @@ public class ResultServlet extends HttpServlet {
         DateTimeFormatter datetimeFP = DateTimeFormatter.ofPattern("yyyyMMdd");
         String todayString = today.format(datetimeFP);
 
-        Connection conn = null;
+        Connection conn;
         BufferedReader br = null;
 
         try {
@@ -156,8 +156,13 @@ public class ResultServlet extends HttpServlet {
 
             //값을 저장해줌
             //値をセットする
-            Unsei unsei = null;
+            //Unsei unsei = null;
+            Unsei unsei = new Unsei() {
+                @Override
+                public void setUnsei() {
 
+                }
+            };
 
             //6. omikujiID를 받아와서 오미쿠지 값을 받아옴
             //6. omikujiIDを受け入れておみくじ値を受け入れる
@@ -200,6 +205,7 @@ public class ResultServlet extends HttpServlet {
                 pstmt7.executeUpdate();
             }
 
+
             JspBeans jspbeans = new JspBeans();
             jspbeans.setUnsei();
             jspbeans.setNegaigoto(unsei.getNegaigoto());
@@ -209,28 +215,29 @@ public class ResultServlet extends HttpServlet {
             request.setAttribute("JspBeans", jspbeans);
             request.getRequestDispatcher("OmikujiJSP.jsp").forward(request, response);
 
-            conn.commit();
+
 
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
             //해제 解除
-            try{
-                if(br!=null) {
-                    br.close();
-                }
-                if(conn != null){
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if(br!=null) {
+                br.close();
             }
+//                if(conn != null){
+//                    conn.close();
+//                }
         }
     }
 
     public static Unsei selectUnsei(String unseistr) {
-        Unsei unsei = null;
+        //Unsei unsei = null;
+        Unsei unsei = new Unsei() {
+            @Override
+            public void setUnsei() {
 
+            }
+        };
         switch (unseistr) {
             case "大吉":
                 unsei = new Daikichi();

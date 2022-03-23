@@ -56,7 +56,6 @@ public class OmikujiDB {
             //DriverManager는 JDBC드라이버를 통해 Connection을 만드는 역할
             //DriverManagerはJDBCドライバーを通じてConnectionを作る役割
             conn = DBUtil.getConnection();
-            conn.setAutoCommit(false);
 
             String fortunemaster_selectsql = "SELECT unseicode, unseiname FROM fortunemaster";
             PreparedStatement pstmt1 = conn.prepareStatement(fortunemaster_selectsql);
@@ -162,10 +161,6 @@ public class OmikujiDB {
                 omikujiID = String.valueOf(rannum);
             }
 
-            //값을 저장해줌
-            //値をセットする
-            Unsei unsei = null;
-
 
             //6. omikujiID를 받아와서 오미쿠지 값을 받아옴
             //6. omikujiIDを受け入れておみくじ値を受け入れる
@@ -182,6 +177,16 @@ public class OmikujiDB {
             ResultSet rs6 = pstmt6.executeQuery();
 
             //System.out.println("pass");
+
+            //값을 저장해줌
+            //値をセットする
+            //Unsei unsei = null;
+            Unsei unsei = new Unsei() {
+                @Override
+                public void setUnsei() {
+
+                }
+            };
 
             while(rs6.next()) {
                 //System.out.println("pass");
@@ -212,19 +217,15 @@ public class OmikujiDB {
                 pstmt7.executeUpdate();
             }
 
-            conn.commit();
-
             //8. 콘솔로 결과 출력
             //8. コンソールで結果出力する
             System.out.println(unsei.disp());
 
         } catch (SQLException e){
             e.printStackTrace();
-            conn.rollback();
         } finally {
             //해제 解除
             try{
-                conn.setAutoCommit(true);
                 if(br!=null) {
                     br.close();
                 }

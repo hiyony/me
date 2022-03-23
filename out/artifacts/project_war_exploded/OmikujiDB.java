@@ -56,7 +56,6 @@ public class OmikujiDB {
             //DriverManager는 JDBC드라이버를 통해 Connection을 만드는 역할
             //DriverManagerはJDBCドライバーを通じてConnectionを作る役割
             conn = DBUtil.getConnection();
-            conn.setAutoCommit(false);
 
             String fortunemaster_selectsql = "SELECT unseicode, unseiname FROM fortunemaster";
             PreparedStatement pstmt1 = conn.prepareStatement(fortunemaster_selectsql);
@@ -220,11 +219,9 @@ public class OmikujiDB {
 
         } catch (SQLException e){
             e.printStackTrace();
-            conn.rollback();
         } finally {
             //해제 解除
             try{
-                conn.setAutoCommit(true);
                 if(br!=null) {
                     br.close();
                 }
