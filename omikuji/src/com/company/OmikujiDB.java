@@ -74,8 +74,8 @@ public class OmikujiDB {
                 while ((line = br.readLine()) != null) {
                     String[] values = line.split(",");
 
-                    if (!unseiMap.keySet().contains(values[0])) {
-                        unseiMap.put(values[1], values[0]);
+                    if (!unseiMap.keySet().contains(values[1])) {
+                        unseiMap.put(values[0], values[1]);
                     }
                 }
 
@@ -85,8 +85,8 @@ public class OmikujiDB {
 
                 for (Map.Entry<String, String> entry : unseiMap.entrySet()) {
                     PreparedStatement pstmt2 = conn.prepareStatement(fortunemaster_sql);
-                    pstmt2.setString(1, entry.getKey());
-                    pstmt2.setString(2, entry.getValue());
+                    pstmt2.setString(1, entry.getValue());
+                    pstmt2.setString(2, entry.getKey());
                     pstmt2.setString(3, "ヒヨ");
                     pstmt2.setString(4, todayString);
                     pstmt2.setString(5, "ヒヨ");
@@ -123,7 +123,7 @@ public class OmikujiDB {
                     //クエリを実装するオブジェクトを作る(オブジェクトを作るとクエリが与えられる）
                     pstmt4.setString(1, Integer.toString(cnt + 1));
                     String[] values = line.split(",");
-                    pstmt4.setString(2, unseiMap.get(values[1]));
+                    pstmt4.setString(2, unseiMap.get(values[0]));
                     pstmt4.setString(3, values[2]);
                     pstmt4.setString(4, values[3]);
                     pstmt4.setString(5, values[4]);
@@ -161,6 +161,9 @@ public class OmikujiDB {
                 omikujiID = String.valueOf(rannum);
             }
 
+            //값을 저장해줌
+            //値をセットする
+            Unsei unsei = null;
 
             //6. omikujiID를 받아와서 오미쿠지 값을 받아옴
             //6. omikujiIDを受け入れておみくじ値を受け入れる
@@ -176,17 +179,6 @@ public class OmikujiDB {
             pstmt6.setString(1, omikujiID); //o.omikujicode = ?
             ResultSet rs6 = pstmt6.executeQuery();
 
-            //System.out.println("pass");
-
-            //값을 저장해줌
-            //値をセットする
-            //Unsei unsei = null;
-            Unsei unsei = new Unsei() {
-                @Override
-                public void setUnsei() {
-
-                }
-            };
 
             while(rs6.next()) {
                 //System.out.println("pass");

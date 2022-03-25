@@ -4,7 +4,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Objects;
 
 
 public class InputServlet extends HttpServlet {
@@ -12,7 +11,7 @@ public class InputServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         view(request, response);
     }
 
@@ -32,7 +31,7 @@ public class InputServlet extends HttpServlet {
 
     }
 
-    protected void view(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void view(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html; charset=UTF-8");
 
         PrintWriter out = response.getWriter();

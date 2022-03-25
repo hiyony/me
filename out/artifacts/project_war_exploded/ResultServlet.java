@@ -22,6 +22,7 @@ public class ResultServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
 
         String birthday = (String) request.getAttribute("birthday");
+        System.out.println(birthday);
         //InputServletから誕生日パラメーターを読み込んでcheckBirthdayで文字数チェックする
         //InputServlet에서 생일 파라미터를 받아와서 checkBirthday에서 문자수 체크
 //        Boolean checkbday = checkBday.checkBirthday(birthday);
@@ -67,8 +68,8 @@ public class ResultServlet extends HttpServlet {
                 while ((line = br.readLine()) != null) {
                     String[] values = line.split(",");
 
-                    if (!unseiMap.keySet().contains(values[0])) {
-                        unseiMap.put(values[1], values[0]);
+                    if (!unseiMap.keySet().contains(values[1])) {
+                        unseiMap.put(values[0], values[1]);
                     }
                 }
 
@@ -116,7 +117,7 @@ public class ResultServlet extends HttpServlet {
                     //クエリを実装するオブジェクトを作る(オブジェクトを作るとクエリが与えられる）
                     pstmt4.setString(1, Integer.toString(cnt + 1));
                     String[] values = line.split(",");
-                    pstmt4.setString(2, unseiMap.get(values[1]));
+                    pstmt4.setString(2, unseiMap.get(values[0]));
                     pstmt4.setString(3, values[2]);
                     pstmt4.setString(4, values[3]);
                     pstmt4.setString(5, values[4]);
@@ -156,13 +157,8 @@ public class ResultServlet extends HttpServlet {
 
             //값을 저장해줌
             //値をセットする
-            //Unsei unsei = null;
-            Unsei unsei = new Unsei() {
-                @Override
-                public void setUnsei() {
+            Unsei unsei = null;
 
-                }
-            };
 
             //6. omikujiID를 받아와서 오미쿠지 값을 받아옴
             //6. omikujiIDを受け入れておみくじ値を受け入れる
@@ -203,6 +199,7 @@ public class ResultServlet extends HttpServlet {
                 pstmt7.setString(7, todayString);
 
                 pstmt7.executeUpdate();
+
             }
 
 
@@ -224,20 +221,12 @@ public class ResultServlet extends HttpServlet {
             if(br!=null) {
                 br.close();
             }
-//                if(conn != null){
-//                    conn.close();
-//                }
         }
     }
 
     public static Unsei selectUnsei(String unseistr) {
-        //Unsei unsei = null;
-        Unsei unsei = new Unsei() {
-            @Override
-            public void setUnsei() {
+        Unsei unsei = null;
 
-            }
-        };
         switch (unseistr) {
             case "大吉":
                 unsei = new Daikichi();
