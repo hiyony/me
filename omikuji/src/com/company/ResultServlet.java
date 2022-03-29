@@ -56,7 +56,7 @@ public class ResultServlet extends HttpServlet {
             ResultSet rs1 = pstmt1.executeQuery();
             Map<String, String> unseiMap = new HashMap<String, String>();
             while (rs1.next()) {
-                unseiMap.put(rs1.getString("unseicode"), rs1.getString("unseiname"));
+                unseiMap.put(rs1.getString("unseiname"), rs1.getString("unseicode"));
             }
 
             if (unseiMap.isEmpty()){
@@ -68,12 +68,12 @@ public class ResultServlet extends HttpServlet {
                 while ((line = br.readLine()) != null) {
                     String[] values = line.split(",");
 
-                    if (!unseiMap.keySet().contains(values[1])) {
-                        unseiMap.put(values[0], values[1]);
+                    if (!unseiMap.keySet().contains(values[0])) {
+                        unseiMap.put(values[1], values[0]);
                     }
                 }
 
-                String fortunemaster_sql = "INSERT INTO fortunemaster(unseicode, unseiname, renewalwriter, renewaldate, "
+                String fortunemaster_sql = "INSERT INTO fortunemaster(unseiname, unseicode, renewalwriter, renewaldate, "
                         + "unseiwriter, unseiwritedate)"
                         + "VALUES(?, ?, ?, ?, ?, ?)";
 
@@ -117,7 +117,7 @@ public class ResultServlet extends HttpServlet {
                     //クエリを実装するオブジェクトを作る(オブジェクトを作るとクエリが与えられる）
                     pstmt4.setString(1, Integer.toString(cnt + 1));
                     String[] values = line.split(",");
-                    pstmt4.setString(2, unseiMap.get(values[0]));
+                    pstmt4.setString(2, unseiMap.get(values[1]));
                     pstmt4.setString(3, values[2]);
                     pstmt4.setString(4, values[3]);
                     pstmt4.setString(5, values[4]);
@@ -157,8 +157,6 @@ public class ResultServlet extends HttpServlet {
 
             //값을 저장해줌
             //値をセットする
-            Unsei unsei = null;
-
 
             //6. omikujiID를 받아와서 오미쿠지 값을 받아옴
             //6. omikujiIDを受け入れておみくじ値を受け入れる
@@ -174,6 +172,7 @@ public class ResultServlet extends HttpServlet {
             pstmt6.setString(1, omikujiID); //o.omikujicode = ?
             ResultSet rs6 = pstmt6.executeQuery();
 
+            Unsei unsei = null;
             while(rs6.next()) {
                 unsei = selectUnsei(rs6.getString("unseiname"));
                 unsei.setOmikujicode(omikujiID);
@@ -204,7 +203,7 @@ public class ResultServlet extends HttpServlet {
 
 
             JspBeans jspbeans = new JspBeans();
-            jspbeans.setUnsei();
+            jspbeans.setUnsei(unsei.getUnsei());
             jspbeans.setNegaigoto(unsei.getNegaigoto());
             jspbeans.setAkinai(unsei.getAkinai());
             jspbeans.setGakumon(unsei.getGakumon());
@@ -225,31 +224,31 @@ public class ResultServlet extends HttpServlet {
     }
 
     public static Unsei selectUnsei(String unseistr) {
-        Unsei unsei = null;
+        Unsei fortune = null;
 
         switch (unseistr) {
             case "大吉":
-                unsei = new Daikichi();
+                fortune = new Daikichi();
                 break;
             case "中吉":
-                unsei = new Cyuukichi();
+                fortune = new Cyuukichi();
                 break;
             case "小吉":
-                unsei = new Syoukichi();
+                fortune = new Syoukichi();
                 break;
             case "吉":
-                unsei = new Kichi();
+                fortune = new Kichi();
                 break;
             case "末吉":
-                unsei = new Sueyosi();
+                fortune = new Sueyosi();
                 break;
             case "凶":
-                unsei = new Kyou();
+                fortune = new Kyou();
                 break;
             default:
                 break;
         }
-        return unsei;
+        return fortune;
     }
 }
 

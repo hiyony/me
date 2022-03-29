@@ -60,9 +60,9 @@ public class OmikujiDB {
             String fortunemaster_selectsql = "SELECT unseicode, unseiname FROM fortunemaster";
             PreparedStatement pstmt1 = conn.prepareStatement(fortunemaster_selectsql);
             ResultSet rs1 = pstmt1.executeQuery();
-            Map<String, String> unseiMap = new HashMap<String, String>();
+            Map<String, String> unseiMap = new HashMap<>();
             while (rs1.next()) {
-                unseiMap.put(rs1.getString("unseicode"), rs1.getString("unseiname"));
+                unseiMap.put(rs1.getString("unseiname"), rs1.getString("unseicode"));
             }
 
             if (unseiMap.isEmpty()){
@@ -74,19 +74,21 @@ public class OmikujiDB {
                 while ((line = br.readLine()) != null) {
                     String[] values = line.split(",");
 
-                    if (!unseiMap.keySet().contains(values[1])) {
-                        unseiMap.put(values[0], values[1]);
+                    if (!unseiMap.keySet().contains(values[0])) {
+                        unseiMap.put(values[1], values[0]);
                     }
                 }
 
-                String fortunemaster_sql = "INSERT INTO fortunemaster(unseicode, unseiname, renewalwriter, renewaldate, "
+                System.out.println(unseiMap);
+
+                String fortunemaster_sql = "INSERT INTO fortunemaster(unseiname, unseicode, renewalwriter, renewaldate, "
                                                     + "unseiwriter, unseiwritedate)"
                                               + "VALUES(?, ?, ?, ?, ?, ?)";
 
                 for (Map.Entry<String, String> entry : unseiMap.entrySet()) {
                     PreparedStatement pstmt2 = conn.prepareStatement(fortunemaster_sql);
-                    pstmt2.setString(1, entry.getValue());
-                    pstmt2.setString(2, entry.getKey());
+                    pstmt2.setString(1, entry.getKey());
+                    pstmt2.setString(2, entry.getValue());
                     pstmt2.setString(3, "ヒヨ");
                     pstmt2.setString(4, todayString);
                     pstmt2.setString(5, "ヒヨ");
@@ -123,7 +125,7 @@ public class OmikujiDB {
                     //クエリを実装するオブジェクトを作る(オブジェクトを作るとクエリが与えられる）
                     pstmt4.setString(1, Integer.toString(cnt + 1));
                     String[] values = line.split(",");
-                    pstmt4.setString(2, unseiMap.get(values[0]));
+                    pstmt4.setString(2, unseiMap.get(values[1]));
                     pstmt4.setString(3, values[2]);
                     pstmt4.setString(4, values[3]);
                     pstmt4.setString(5, values[4]);
@@ -163,13 +165,8 @@ public class OmikujiDB {
 
             //값을 저장해줌
             //値をセットする
-            //Unsei unsei = null;
-            Unsei unsei = new Unsei() {
-                @Override
-                public void setUnsei() {
+            Unsei unsei = null;
 
-                }
-            };
 
             //6. omikujiID를 받아와서 오미쿠지 값을 받아옴
             //6. omikujiIDを受け入れておみくじ値を受け入れる
@@ -238,6 +235,7 @@ public class OmikujiDB {
 
     public static Unsei selectUnsei(String unseistr) {
         Unsei unsei = null;
+
 
         switch (unseistr) {
             case "大吉":
