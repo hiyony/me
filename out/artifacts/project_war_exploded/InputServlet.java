@@ -26,9 +26,10 @@ public class InputServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("rsservlet");
             requestDispatcher.forward(request, response);
         } else if(checkday.equals(false)){
+            view(request, response);
             out.print("<p>入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。</p>");
         }
-        view(request, response);
+
     }
 
     protected void view(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -49,7 +50,5 @@ public class InputServlet extends HttpServlet {
         out.print("<input type=\"text\" name=\"birthday\" placeholder=\"yyyyMMddの形式\">");
         out.print("<input type=\"submit\" value=\"確認\">");
         out.print("</form></body></html>");
-        out.close();
-
     }
 }
