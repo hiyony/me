@@ -21,23 +21,9 @@ public class ResultServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
 
+        //Inputservlet으로부터 생일 파라미터를 받아와서 yyyyMMdd 형식으로 바꾸어줌
+
         String birthday = (String) request.getAttribute("birthday");
-        System.out.println(birthday);
-        //InputServletから誕生日パラメーターを読み込んでcheckBirthdayで文字数チェックする
-        //InputServlet에서 생일 파라미터를 받아와서 checkBirthday에서 문자수 체크
-//        Boolean checkbday = checkBday.checkBirthday(birthday);
-//
-//        //入力された誕生日形式を検査してfalseをリターンする場合
-//        //생일을 검사하고 false를 리턴할 경우(yyyyMMdd의 형태가 아닐 때)
-//        if(!checkbday){
-//            //RequestDispatcher : servlet, JSPが他のコンポーネントで移動する場合
-//            //RequestDispatcher : servlet, JSP가 다른 컴포넌트로 수행을 옮기는 경우 사용
-//            //forwardメソッドはservletが他のコンポーネントで移動するために使う
-//            //forward 메소드가 servlet이 다른 컴포넌트에게 수행을 넘기는 작업을 함
-//            request.setAttribute("checkmessage", "入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。");
-//            request.getRequestDispatcher("inputservlet").forward(request, response);
-//        }
-//
 
         LocalDate today = LocalDate.now();
         DateTimeFormatter datetimeFP = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -47,17 +33,31 @@ public class ResultServlet extends HttpServlet {
         BufferedReader br = null;
 
         try {
-            //DriverManager는 JDBC드라이버를 통해 Connection을 만드는 역할
-            //DriverManagerはJDBCドライバーを通じてConnectionを作る役割
+            //DB와 연결
+
             conn = DBUtil.getConnection();
+
+            //fortunemaster 테이블에서 운세코드와 운세명 select문으로 받아오기
 
             String fortunemaster_selectsql = "SELECT unseicode, unseiname FROM fortunemaster";
             PreparedStatement pstmt1 = conn.prepareStatement(fortunemaster_selectsql);
             ResultSet rs1 = pstmt1.executeQuery();
-            Map<String, String> unseiMap = new HashMap<String, String>();
+
+            //Hashmap ・ key-value의 구조로 함께 관리할 수 있는 메서드를 구현
+            //        ・ 검색을 위한 자료구조
+            //        ・ key를 이용해서 값을 저장하고 key를 이용해서 값을 꺼내오는 방식
+            //        ・ 중복을 허용하지 않고, 속도가 빠르다는 장점이 있음
+
+            //hashmap 생성, 운세명과 운세코드를 함께 받아와 hashmap에 넣어줌시
+            //
+
+            Map<String, String> unseiMap = new HashMap<>();
             while (rs1.next()) {
                 unseiMap.put(rs1.getString("unseiname"), rs1.getString("unseicode"));
             }
+
+            //CSV 파일로부터 데이터를 가져와서 key-value 형식으로 hashmap에 넣어줌
+            //
 
             if (unseiMap.isEmpty()){
                 String line;
@@ -68,7 +68,9 @@ public class ResultServlet extends HttpServlet {
                 while ((line = br.readLine()) != null) {
                     String[] values = line.split(",");
 
-                    if (!unseiMap.keySet().contains(values[0])) {
+                    //key값에 운세명이 포함되어 있지 않을 경우 key와 value를 세팅
+
+                    if (!unseiMap.keySet().contains(values[1])) {
                         unseiMap.put(values[1], values[0]);
                     }
                 }
