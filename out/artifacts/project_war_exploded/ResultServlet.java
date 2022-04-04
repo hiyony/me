@@ -22,6 +22,7 @@ public class ResultServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
 
         //Inputservlet으로부터 생일 파라미터를 받아와서 yyyyMMdd 형식으로 바꾸어줌
+        //Inputservletから誕生日パラメーターを受け入れてyyyyMMddの形式に変える
 
         String birthday = (String) request.getAttribute("birthday");
 
@@ -34,10 +35,12 @@ public class ResultServlet extends HttpServlet {
 
         try {
             //DB와 연결
+            //DBと連結
 
             conn = DBUtil.getConnection();
 
             //fortunemaster 테이블에서 운세코드와 운세명 select문으로 받아오기
+            //fortunemasterテーブルから運勢コードと運勢名をselect文で読み込む
 
             String fortunemaster_selectsql = "SELECT unseicode, unseiname FROM fortunemaster";
             PreparedStatement pstmt1 = conn.prepareStatement(fortunemaster_selectsql);
@@ -48,16 +51,16 @@ public class ResultServlet extends HttpServlet {
             //        ・ key를 이용해서 값을 저장하고 key를 이용해서 값을 꺼내오는 방식
             //        ・ 중복을 허용하지 않고, 속도가 빠르다는 장점이 있음
 
-            //hashmap 생성, 운세명과 운세코드를 함께 받아와 hashmap에 넣어줌시
-            //
+            //hashmap 생성, 운세명과 운세코드를 함께 받아와 hashmap에 넣어줌
+            //hashmapを作って、運勢名と運勢コードを一緒に受け入れてhashmapに受け入れる
 
             Map<String, String> unseiMap = new HashMap<>();
             while (rs1.next()) {
                 unseiMap.put(rs1.getString("unseiname"), rs1.getString("unseicode"));
             }
 
-            //CSV 파일로부터 데이터를 가져와서 key-value 형식으로 hashmap에 넣어줌
-            //
+            //hashmap이 비어있을 경우, CSV 파일로부터 데이터를 가져와서 key-value 형식으로 hashmap에 넣어줌
+            //hashmapが空いている場合、CSVファイルからデータを読み込んでkey-value形式でhashmapに受け入れる
 
             if (unseiMap.isEmpty()){
                 String line;
@@ -68,16 +71,23 @@ public class ResultServlet extends HttpServlet {
                 while ((line = br.readLine()) != null) {
                     String[] values = line.split(",");
 
-                    //key값에 운세명이 포함되어 있지 않을 경우 key와 value를 세팅
+                    //key값에 운세코드가 포함되어 있지 않을 경우 key와 value를 세팅
+                    //keyで運勢コードが含まれない場合、keyとvalueをセット
 
                     if (!unseiMap.keySet().contains(values[1])) {
                         unseiMap.put(values[1], values[0]);
                     }
                 }
 
+                //fortunemaster 테이블에 운세명, 운세코드, 작성자, 작성일 등 값을 넣어줌
+                //fortunemasterテーブルに運勢名、運勢コード、作成者、作成日などの値を受け入れる
+
                 String fortunemaster_sql = "INSERT INTO fortunemaster(unseiname, unseicode, renewalwriter, renewaldate, "
                         + "unseiwriter, unseiwritedate)"
                         + "VALUES(?, ?, ?, ?, ?, ?)";
+
+                //Entryset에 담긴 모든 key-value 값을 얻어서 운세명과 운세 코드에 값을 넣어줌
+                //Entrysetに含まれている全てのkeyーvalueを読み込んで運勢名と運勢コードにセット
 
                 for (Map.Entry<String, String> entry : unseiMap.entrySet()) {
                     PreparedStatement pstmt2 = conn.prepareStatement(fortunemaster_sql);
@@ -99,8 +109,8 @@ public class ResultServlet extends HttpServlet {
             int cnt = rs3.getInt("CNT");
 
 
-            //3. fortunemaster 테이블과 omikujii테이블이 비어있는지 확인
-            //3. omikujiiテーブルが空いているかを確認
+            //fortunemaster 테이블과 omikujii테이블이 비어있는지 확인
+            //omikujiiテーブルが空いているかを確認
             //cnt == 0: 테이블 안의 결과 수를 count해서 데이터베이스가 비어있을 경우
             //        : テーブルの中の結果数をcountしてデータベースが空いている場合
             if (cnt == 0 ) {
@@ -135,8 +145,8 @@ public class ResultServlet extends HttpServlet {
                 }
             }
 
-            //4. 생일이 같고 점친 날이 같은 경우, omikujiID를 받아옴
-            //4. 同じ誕生日で同じ占い日付だった場合、omikujiIDを受け入れる
+            //생일이 같고 점친 날이 같은 경우, omikujiID를 받아옴
+            //同じ誕生日で同じ占い日付だった場合、omikujiIDを受け入れる
             String compare_sql = "SELECT omikujicode, uranaidate, birthday " +
                     "FROM unseiresult " +
                     "WHERE uranaidate = ? AND birthday = ?";
@@ -150,8 +160,8 @@ public class ResultServlet extends HttpServlet {
                 omikujiID = rs5.getString("omikujicode");
             }
 
-            //5. omikujiID를 받아오지 못했을 경우, 랜덤 omikujiID를 받아옴
-            //5. omikujiIDを受け入れない場合、ランダムomikujiIDを受け入れる
+            //omikujiID를 받아오지 못했을 경우, 랜덤 omikujiID를 받아옴
+            //omikujiIDを受け入れない場合、ランダムomikujiIDを受け入れる
             if(omikujiID.isEmpty()){
                 int rannum = new Random().nextInt(cnt) + 1; //アドバイスのこと
                 omikujiID = String.valueOf(rannum);
@@ -159,9 +169,9 @@ public class ResultServlet extends HttpServlet {
 
             //값을 저장해줌
             //値をセットする
+            //omikujiID를 받아와서 오미쿠지 값을 받아옴
+            //omikujiIDを受け入れておみくじ値を受け入れる
 
-            //6. omikujiID를 받아와서 오미쿠지 값을 받아옴
-            //6. omikujiIDを受け入れておみくじ値を受け入れる
             String result_sql  = "SELECT f.unseiname as unseiname, " +
                     "o.negaigoto as negaigoto, " +
                     "o.akinai as akinai, " +
@@ -184,8 +194,9 @@ public class ResultServlet extends HttpServlet {
                 unsei.setGakumon(rs6.getString("gakumon"));
 
 
-                //7. result 테이블에 결과값을 넣어줌
-                //7. result テーベルに結果値を入れる
+                //result 테이블에 결과값을 넣어줌
+                //result テーベルに結果値を入れる
+
                 String insertresult_sql = "INSERT INTO unseiresult(uranaidate, birthday, omikujicode, renewalwriter, " +
                         "renewaldate, unseiwriter, unseiwritedate) " +
                         "VALUES(?, ?, ?, ?, ?, ?, ?)";
@@ -203,6 +214,8 @@ public class ResultServlet extends HttpServlet {
 
             }
 
+            //Bean : 웹에서 사용할 데이터를 java 클래스로 정의해놓은 후 데이터 전송에 사용되는 클래스
+            //     : ウェーブで使うデータをjavaクラスで正義した後、データ配信に使うクラス
 
             JspBeans jspbeans = new JspBeans();
             jspbeans.setUnsei(unsei.getUnsei());

@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 public class InputServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    Boolean flag = true;
 
     //초기 화면은 doGet()으로, 생일을 체크해서 에러메세지를 표시하는 화면은 doPost()로 구현
     //view()를 통해서 초기 화면 Html 부분을 세팅
@@ -17,12 +18,11 @@ public class InputServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        view(request, response);
+        view(request, response, true);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
 
         //입력받은 생일을 파라미터로 받아와서, 생일을 체크
         //入力された誕生日をパラメーターで受け入れて、誕生日をチェックする
@@ -40,17 +40,14 @@ public class InputServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("rsservlet");
             requestDispatcher.forward(request, response);
         } else if(checkday.equals(false)){
-            view(request, response);
-            out.print("<p>入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。</p>");
+            view(request, response,false);
         }
-
     }
 
-    protected void view(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void view(HttpServletRequest request, HttpServletResponse response, boolean flg) throws IOException {
         response.setContentType("text/html; charset=UTF-8");
 
-        //html 화면을 표시
-        //htmlの画面を表示する
+        //html 화면을 표시 htmlの画面を表示する
 
         PrintWriter out = response.getWriter();
         out.print("<!DOCTYPE html>");
@@ -66,6 +63,10 @@ public class InputServlet extends HttpServlet {
         out.print("<span>お誕生日を入力してください！</span>");
         out.print("<input type=\"text\" name=\"birthday\" placeholder=\"yyyyMMddの形式\">");
         out.print("<input type=\"submit\" value=\"確認\">");
+        if(!flag){
+            out.print("<p>入力された形式が正しくありません。yyyyMMdd形式の８文字でお願いします。</p>");
+            flag = true;
+        }
         out.print("</form></body></html>");
     }
 }

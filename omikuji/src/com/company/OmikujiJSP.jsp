@@ -6,6 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    response.setHeader( "Pragma", "no-cache" );
+    response.setDateHeader( "Expires", -1 );
+    response.setHeader( "Cache-Control", "no-cache" );
+%>
 <html>
 <head>
     <title>Omikuji Web Service</title>
@@ -17,7 +22,7 @@
         <br>願い事 : <%=JspBeans.getNegaigoto()%>
         <br>商い : <%=JspBeans.getAkinai()%>
         <br>学問 : <%=JspBeans.getGakumon()%>
+        <br><input type="button" value="戻る" onclick="location.href='<%=request.getContextPath()%>inputservlet'">
     </p>
-
 </body>
 </html>
